@@ -29,15 +29,15 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd ~/frontend
+          cd frontend
           npm ci
           npm install -g @angular/cli
 
       - name: Build
-        run: cd ~/frontend && npm run build:prod --output-path=dist 
+        run: cd frontend && npm run build:prod --output-path=dist 
 
       - name: Test
-        run: cd ~/frontend && npm run test:prod
+        run: cd frontend && npm run test:prod
   
       - name: Build and publish Docker image
         uses: VaultVulp/gp-docker-action@1.5.0
