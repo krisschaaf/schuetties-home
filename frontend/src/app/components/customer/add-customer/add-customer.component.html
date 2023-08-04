@@ -1,0 +1,101 @@
+<div class="container flex-grow-1 flex-shrink-1">
+    <form [formGroup]="addCustomerForm" (ngSubmit)="onAddCustomerFormHandler()" class="add-customer">
+        <h1 class="mb-4">Kunden hinzufügen</h1>
+
+        <mat-form-field>
+            <mat-label>Anrede</mat-label>
+            <mat-select formControlName="salutationFormControl">
+                <mat-option value="frau">Frau</mat-option>
+                <mat-option value="herr">Herr</mat-option>
+                <mat-option value="nicht-binaer">Nicht binär</mat-option>
+                <mat-option value="divers">Divers</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="row">
+            <mat-form-field class="col">
+                <mat-label>Vorname</mat-label>
+                <input matInput formControlName="surnameFormControl" />
+            </mat-form-field>
+
+            <mat-form-field class="col">
+                <mat-label>Nachname</mat-label>
+                <input matInput formControlName="lastnameFormControl" />
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="w-100">
+            <mat-label>Email Adresse</mat-label>
+            <input matInput formControlName="emailFormControl" />
+        </mat-form-field>
+
+        <div class="row">
+            <mat-form-field class="col">
+                <mat-label>Telefon privat</mat-label>
+                <input matInput formControlName="phonePrivateFormControl" />
+            </mat-form-field>
+
+            <mat-form-field class="col">
+                <mat-label>Telefon geschäftlich</mat-label>
+                <input matInput formControlName="phoneBusinessFormControl" />
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col">
+                <mat-label>Handy</mat-label>
+                <input matInput formControlName="mobileFormControl" />
+            </mat-form-field>
+
+            <mat-form-field class="col">
+                <mat-label>Fax</mat-label>
+                <input matInput formControlName="faxFormControl" />
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col">
+                <mat-label>Straße</mat-label>
+                <input matInput formControlName="streetFormControl" />
+            </mat-form-field>
+
+            <mat-form-field class="col">
+                <mat-label>Hausnummer</mat-label>
+                <input matInput formControlName="housingNumberFormControl" />
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col">
+                <mat-label>PLZ</mat-label>
+                <input matInput formControlName="postalCodeFormControl" />
+            </mat-form-field>
+
+            <mat-form-field class="col">
+                <mat-label>Stadt</mat-label>
+                <input matInput formControlName="cityFormControl" />
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="w-100">
+            <mat-label>Kontonummer</mat-label>
+            <input matInput formControlName="bankNumberFormControl" />
+        </mat-form-field>
+
+        <div class="row">
+            <mat-form-field class="col">
+                <mat-label>Sonstiges</mat-label>
+                <textarea matInput formControlName="otherFormControl" cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="col d-flex justify-content-end mt-2 w-100">
+            <button mat-raised-button class="w-35" color="primary" type="submit">Hinzufügen</button>
+        </div>
+
+        <div class="col d-flex justify-content-end mt-2 w-100">
+            <button mat-raised-button class="w-35" color="secondary" type="button" [routerLink]="'/'">Abbrechen</button>
+        </div>
+    </form>
+</div>

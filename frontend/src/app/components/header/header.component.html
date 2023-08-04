@@ -1,0 +1,114 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Navbar brand -->
+    <img [routerLink]="['/']" class="navbar-brand logo" src="../../../assets/alogo.png"  alt="logo" width="65" height="60">
+
+    <!-- Toggle button -->
+    <button mat-raised-button
+      class="navbar-toggler"
+      (click)="isCollapsed = !isCollapsed"
+      aria-label="Toggle navigation"
+    >
+      <mat-icon class="m-0">menu</mat-icon>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div
+      class="collapse navbar-collapse"
+      id="navbarSupportedContent"
+      [ngbCollapse]="isCollapsed"
+    >
+      <!-- Left links -->
+      <ul *ngIf="!isLoggedIn" class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <!-- <a class="nav-link active" aria-current="page" href="/">Home</a> -->
+          <button class="nav-link" mat-button routerLink="/">
+            <p class="m-0">Home</p>
+          </button>
+        </li>
+      </ul>
+
+      <ul *ngIf="isLoggedIn" class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item d-flex align-items-center">
+          <button class="nav-link" mat-button routerLink="/">
+            <p class="home">Home</p>
+          </button>
+        </li>
+        <li class="nav-item mr-2">
+          <button class="p-1 pl-0" mat-menu-item [matMenuTriggerFor]="customerMenu" aria-label="customerMenu">
+            <mat-icon class="m-0">expand_more</mat-icon>
+            <p class="m-0">Kunden</p>
+          </button>
+          <mat-menu #customerMenu="matMenu">
+            <button mat-menu-item routerLink="/customers">
+              <mat-icon>add</mat-icon>
+              <span>Kunden verwalten</span>
+            </button>
+            <button mat-menu-item routerLink="/addCustomer">
+              <mat-icon>add</mat-icon>
+              <span>Neuen Kunden hinzufügen</span>
+            </button>
+          </mat-menu>
+        </li>
+        <li class="nav-item mr-2">
+          <button class="p-1 pl-0" mat-menu-item [matMenuTriggerFor]="carMenu" aria-label="carMenu">
+            <mat-icon class="m-0">expand_more</mat-icon>
+            <p class="m-0">Autos</p>
+          </button>
+          <mat-menu #carMenu="matMenu">
+            <button mat-menu-item routerLink="/cars">
+              <mat-icon>add</mat-icon>
+              <span>Autos verwalten</span>
+            </button>
+            <button mat-menu-item routerLink="/addCar">
+              <mat-icon>add</mat-icon>
+              <span>Neues Auto hinzufügen</span>
+            </button>
+          </mat-menu>
+        </li>
+        <!-- <li class="nav-item col">
+          <button class="p-1" mat-menu-item [matMenuTriggerFor]="syltMenu" aria-label="carMenu">
+            <mat-icon class="m-0">expand_more</mat-icon>
+            <p class="m-0">Sylt</p>
+          </button>
+          <mat-menu #syltMenu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>add</mat-icon>
+              <span>Neue Rechnung erstellen</span>
+            </button>
+          </mat-menu>
+        </li> -->
+        <!-- <li class="nav-item col">
+          <button class="p-1" mat-menu-item [matMenuTriggerFor]="apartmentMenu" aria-label="carMenu">
+            <mat-icon class="m-0">expand_more</mat-icon>
+            <p class="m-0">Wohnungen</p>
+          </button>
+          <mat-menu #apartmentMenu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>add</mat-icon>
+              <span>Nebenkosten bearbeiten</span>
+            </button>
+          </mat-menu>
+        </li> -->
+      </ul>
+      <!-- Left links -->
+
+      <!-- Auth Button -->
+      <div class="navbar_auth">
+        <button mat-raised-button color="primary" type="button" *ngIf="!isLoggedIn"
+          (click)="loginWithRedirect()" color="basic" class="navbar__auth--button">
+          <mat-icon>login</mat-icon>Anmelden
+        </button>
+        <button mat-raised-button color="primary" type="button" *ngIf="isLoggedIn" (click)="logout()"
+          color="basic" class="navbar__auth--button">
+          <mat-icon>logout</mat-icon>Abmelden
+        </button>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

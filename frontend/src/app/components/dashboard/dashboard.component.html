@@ -1,0 +1,23 @@
+<div *ngIf="!isLoggedIn" class="dashboard__noAuth">
+    <div class="p-0 dashboard--banner">
+        <h1>Zum Fortfahren</h1>
+        <button mat-raised-button (click)="loginWithRedirect()">Anmelden</button>
+    </div>
+</div>
+
+<div *ngIf="isLoggedIn" class="dashboard__withAuth">
+    <div class="p-0 dashboard--banner">
+        <h1>Willkommen!</h1>
+        <h2>Bitte wähle ein Thema:</h2>
+    </div>
+    <div class="tiles">
+        <div *ngFor="let menuTile of menuTiles" [routerLink]="menuTile.basePath" [class]="menuTile.cssClass">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>{{ menuTile.title }}</mat-card-title>
+                    <mat-card-subtitle>{{ menuTile.subtitle }}</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+        </div>
+    </div>
+</div>
