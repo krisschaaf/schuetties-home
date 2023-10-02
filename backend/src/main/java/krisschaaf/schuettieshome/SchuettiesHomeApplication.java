@@ -1,0 +1,13 @@
+package krisschaaf.schuettieshome;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SchuettiesHomeApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SchuettiesHomeApplication.class, args);
+	}
+
+}
