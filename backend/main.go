@@ -15,7 +15,7 @@ func main() {
 
 	app.Use(cors.New(cors.Config{
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
-		AllowOrigins:     "https://schuett-webapp.web.app",
+		AllowOrigins:     "http://localhost:4200",
 		AllowCredentials: true,
 		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH,OPTIONS",
 	}))

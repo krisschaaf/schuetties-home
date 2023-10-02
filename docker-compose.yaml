@@ -6,13 +6,30 @@ services:
     build: ./frontend
     ports: 
       - 4200:80
+    container_name: frontend
 
   backend:
     build: ./backend
     ports:
       - 8080:8080
+    container_name: backend
     environment:
-      MONGO_URI: ${MONGO_URI}
-      AUTH0_DOMAIN: ${AUTH0_DOMAIN}
-      AUTH0_CLIENT_ID: ${AUTH0_CLIENT_ID}
-      AUTH0_CALLBACK_URL: ${AUTH0_CALLBACK_URL}
+      MONGO_URI: "mongodb://mongodb:27017"
+      AUTH0_CLIENT_SECRET: "i_cu0tzxehKc6d_Zj_y-yMtLlMh_yFIRKkoN5ngvkmE4LQpmszbibgFSdNtSzXCq"
+      # AUTH0_DOMAIN: ${AUTH0_DOMAIN}
+      # AUTH0_CLIENT_ID: ${AUTH0_CLIENT_ID}
+      # AUTH0_CALLBACK_URL: ${AUTH0_CALLBACK_URL}
+
+  database:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+    volumes:
+      - schuetties-home:/data/db
+    restart: always
+    networks:
+      - default
+    container_name: mongodb
+
+volumes:
+  schuetties-home:
