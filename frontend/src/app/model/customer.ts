@@ -1,7 +1,7 @@
 export interface Customer {
     id: string;
     salutation: string;
-    surname: string;
+    firstname: string;
     lastname: string;
     email: string;
     telephonePrivate: string;
@@ -18,7 +18,7 @@ export interface Customer {
 
 export interface CustomerDTO {
     salutation: string;
-    surname: string;
+    firstname: string;
     lastname: string;
     email: string;
     telephonePrivate: string;

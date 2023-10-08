@@ -24,12 +24,12 @@ export class ShowCustomerComponent implements OnInit{
 
     this.customerService.getCustomerById(customerId!).subscribe({
       next: (value) => {
-        this.customer = value.data.data;
+        this.customer = value;
         this.contentLoaded = true;
 
         this.showCustomerForm = new FormGroup({
           salutationFormControl: new FormControl(this.customer.salutation),
-          surnameFormControl: new FormControl(this.customer.surname),
+          firstnameFormControl: new FormControl(this.customer.firstname),
           lastnameFormControl: new FormControl(this.customer.lastname),
           emailFormControl: new FormControl(this.customer.email, [Validators.email]),
           phonePrivateFormControl: new FormControl(this.customer.telephonePrivate),
@@ -54,8 +54,8 @@ export class ShowCustomerComponent implements OnInit{
     return this.showCustomerForm.get('salutationFormControl') as FormControl;
   }
 
-  get surnameFormControl() {
-    return this.showCustomerForm.get('surnameFormControl') as FormControl;
+  get firstnameFormControl() {
+    return this.showCustomerForm.get('firstnameFormControl') as FormControl;
   }
 
   get lastnameFormControl() {
@@ -130,7 +130,7 @@ export class ShowCustomerComponent implements OnInit{
     return {
       id: this.customer.id,
       salutation: this.salutationFormControl.value,
-      surname: this.surnameFormControl.value,
+      firstname: this.firstnameFormControl.value,
       lastname: this.lastnameFormControl.value,
       email: this.emailFormControl.value,
       telephonePrivate: this.phonePrivateFormControl.value,

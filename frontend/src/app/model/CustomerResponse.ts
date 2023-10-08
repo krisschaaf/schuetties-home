@@ -1,11 +1,7 @@
 import { Customer } from "./customer";
 
 export interface GetCustomersResponse {
-    status: string;
-    message: string;
-    data: {
-        data: Customer[];
-    };
+    data: Customer[];
 }
 
 export interface CustomerResponse {

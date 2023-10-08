@@ -40,7 +40,7 @@ export class AddCarComponent implements OnInit {
         this.notificationService.notifyError();
       },
       next: (customers) => {
-        this.customers = customers.data.data.sort(this.dynamicSort('lastname'));
+        this.customers = customers.sort(this.dynamicSort('lastname'));
       }
     })
   }

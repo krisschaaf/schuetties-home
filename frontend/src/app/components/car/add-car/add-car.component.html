@@ -5,8 +5,8 @@
         <mat-form-field class="w-100">
             <mat-label>Kunde</mat-label>
             <mat-select [formControl]="customerFormControl">
-              <mat-option *ngFor="let customer of customers" [value]="customer.lastname + ', ' + customer.surname + ' | ' + customer.city">
-                {{customer.lastname + ', ' + customer.surname + ' | ' + customer.city}}
+              <mat-option *ngFor="let customer of customers" [value]="customer.lastname + ', ' + customer.firstname + ' | ' + customer.city">
+                {{customer.lastname + ', ' + customer.firstname + ' | ' + customer.city}}
             </mat-option>
             </mat-select>
           </mat-form-field>

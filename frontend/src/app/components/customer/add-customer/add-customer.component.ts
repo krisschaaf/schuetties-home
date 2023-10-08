@@ -18,7 +18,7 @@ export class AddCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.addCustomerForm = new FormGroup({
       salutationFormControl: new FormControl(''),
-      surnameFormControl: new FormControl(''),
+      firstnameFormControl: new FormControl(''),
       lastnameFormControl: new FormControl(''),
       emailFormControl: new FormControl('', [Validators.email]),
       phonePrivateFormControl: new FormControl(''),
@@ -38,8 +38,8 @@ export class AddCustomerComponent implements OnInit {
     return this.addCustomerForm.get('salutationFormControl') as FormControl;
   }
 
-  get surnameFormControl() {
-    return this.addCustomerForm.get('surnameFormControl') as FormControl;
+  get firstnameFormControl() {
+    return this.addCustomerForm.get('firstnameFormControl') as FormControl;
   }
 
   get lastnameFormControl() {
@@ -93,7 +93,7 @@ export class AddCustomerComponent implements OnInit {
   buildCustomer(): CustomerDTO {
     return {
       salutation: this.salutationFormControl.value,
-      surname: this.surnameFormControl.value,
+      firstname: this.firstnameFormControl.value,
       lastname: this.lastnameFormControl.value,
       email: this.emailFormControl.value,
       telephonePrivate: this.phonePrivateFormControl.value,

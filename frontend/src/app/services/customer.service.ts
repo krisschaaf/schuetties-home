@@ -10,11 +10,11 @@ import { CustomerResponse, GetCustomersResponse } from '../model/CustomerRespons
 })
 export class CustomerService {
   private baseUrl = environment.backendBasePath; 
-  private addCustomerUrl = this.baseUrl + "customer/createCustomer"; 
+  private addCustomerUrl = this.baseUrl + "customers"; 
   private getCustomersUrl = this.baseUrl + "customers"; 
-  private getCustomerByIdUrl = this.baseUrl + "customer"; 
-  private editCustomerByIdUrl = this.baseUrl + "customer"; 
-  private deleteCustomerByIdUrl = this.baseUrl + "customer"; 
+  private getCustomerByIdUrl = this.baseUrl + "customers"; 
+  private editCustomerByIdUrl = this.baseUrl + "customers"; 
+  private deleteCustomerByIdUrl = this.baseUrl + "customers"; 
 
   constructor(private http: HttpClient) { }
 
@@ -22,16 +22,16 @@ export class CustomerService {
     return this.http.post<any>(this.addCustomerUrl, customer);
   }
 
-  getCustomers(): Observable<GetCustomersResponse> {
-    return this.http.get<GetCustomersResponse>(this.getCustomersUrl);
+  getCustomers(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(this.getCustomersUrl);
   }
 
-  getCustomerById(id: string): Observable<CustomerResponse> {
-    return this.http.get<CustomerResponse>(`${this.getCustomerByIdUrl}/${id}`);
+  getCustomerById(id: string): Observable<Customer> {
+    return this.http.get<Customer>(`${this.getCustomerByIdUrl}/${id}`);
   }
 
   editCustomerById(customer: Customer): Observable<any> {
-    return this.http.put<CustomerResponse>(`${this.editCustomerByIdUrl}/${customer.id}`, customer);
+    return this.http.put<CustomerResponse>(this.editCustomerByIdUrl, customer);
   }
 
   deleteCustomerById(id: string): Observable<any> {
