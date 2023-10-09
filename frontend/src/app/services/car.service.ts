@@ -29,4 +29,15 @@ export class CarService {
     return this.http.get<Car[]>(this.carUrl);
   }
 
+  getCarById(id: string): Observable<Car> {
+    return this.http.get<Car>(`${this.carUrl}/${id}`);
+  }
+
+  editCarById(customer: Car): Observable<any> {
+    return this.http.put<Car>(this.carUrl, customer);
+  }
+
+  deleteCarById(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.carUrl}/${id}`);
+  }
 }

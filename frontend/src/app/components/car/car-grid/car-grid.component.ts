@@ -47,7 +47,7 @@ export class CarGridComponent {
 
   onCellClicked(event: CellClickedEvent) {
     this.router.navigate(
-      ['/customer'],
+      ['/car'],
       {
         queryParams: { 'id': event.data.id },
       },

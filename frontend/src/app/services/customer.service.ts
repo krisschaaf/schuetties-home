@@ -27,7 +27,7 @@ export class CustomerService {
   }
 
   editCustomerById(customer: Customer): Observable<any> {
-    return this.http.put<CustomerResponse>(this.customerUrl, customer);
+    return this.http.put<CustomerResponse>(this.customerUrl, customer); //TODO fix return values
   }
 
   deleteCustomerById(id: string): Observable<any> {
