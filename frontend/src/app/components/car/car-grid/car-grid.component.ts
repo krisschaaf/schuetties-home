@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AgGridAngular } from 'ag-grid-angular';
+import { CellClickedEvent, ColDef } from 'ag-grid-community';
+import { Car } from 'src/app/model/car';
+import { CarService } from 'src/app/services/car.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-car-grid',
@@ -7,4 +13,43 @@ import { Component } from '@angular/core';
 })
 export class CarGridComponent {
 
+  constructor(private carService: CarService, private notificationService: NotificationService, private router: Router) { }
+
+  @ViewChild(AgGridAngular) agGrid!: AgGridAngular
+  public rowData!: Car[];
+
+  colDefs: ColDef[] = [
+    { field: 'customerId', headerName: 'Kunde' },
+    { field: 'make', headerName: 'Marke' },
+    { field: 'model', headerName: 'Modell' },
+    { field: 'year', headerName: 'Baujahr' },
+    { field: 'license', headerName: 'Kennzeichen' },
+    { field: 'date', headerName: 'Eingeliegert am' },
+    { field: 'photoId', headerName: 'Bild' },
+  ];
+
+  public defaultColDef: ColDef = {
+    sortable: true,
+    filter: true,
+  };
+
+  ngOnInit() {
+    this.carService.getCars().subscribe({
+      next: (value) => {
+        this.rowData = value;
+      },
+      error: () => {
+        this.notificationService.notify('Etwas ist schiefgelaufen. Bitte versuch es noch einmal.');
+      }
+    })
+  }
+
+  onCellClicked(event: CellClickedEvent) {
+    this.router.navigate(
+      ['/customer'],
+      {
+        queryParams: { 'id': event.data.id },
+      },
+    );
+  }
 }

@@ -18,6 +18,6 @@ public class Car {
     String year;
     String license;
     Date date;
-    String pictureId; //TODO
+    String photoId; //TODO
 
 }

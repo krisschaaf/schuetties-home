@@ -87,7 +87,7 @@ export class AddCarComponent implements OnInit {
       year: this.yearFormControl.value,
       license: this.licenseFormControl.value,
       date: this.dateFormControl.value,
-      pictureId: this.photo ? this.photo.id : "",
+      photoId: this.photo ? this.photo.id : "",
     }
   }
 

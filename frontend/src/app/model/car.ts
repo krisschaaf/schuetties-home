@@ -6,7 +6,7 @@ export interface Car {
     year: string;
     license: string;
     date: Date;
-    pictureId: string;
+    photoId: string;
 }
 
 export interface CarDTO {
@@ -16,7 +16,7 @@ export interface CarDTO {
     year: string;
     license: string;
     date: Date;
-    pictureId: string;
+    photoId: string;
 }
 
 export interface Photo {

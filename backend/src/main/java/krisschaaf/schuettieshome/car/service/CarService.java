@@ -5,6 +5,8 @@ import krisschaaf.schuettieshome.car.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarService {
     private CarRepository carRepository;
@@ -16,5 +18,17 @@ public class CarService {
 
     public void addCar(Car car) {
         this.carRepository.save(car);
+    }
+
+    public Car getCarById(String id) {
+        return this.carRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find car"));
+    }
+
+    public List<Car> getAllCars() {
+        return this.carRepository.findAll();
+    }
+
+    public void deleteAllCars() {
+        this.carRepository.deleteAll();
     }
 }
