@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { CarDTO } from 'src/app/model/car';
+import { CarDTO, Photo } from 'src/app/model/car';
 import { Customer } from 'src/app/model/customer';
 import { CarService } from 'src/app/services/car.service';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -16,15 +14,14 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class AddCarComponent implements OnInit {
   addCarForm!: FormGroup;
-  file!: File;
-  fileUploadedSubject = new BehaviorSubject<boolean>(false);
-  fileUploaded!: boolean;
+  file!: File
+  photo!: Photo | null;
   customers!: Customer[]
 
   constructor(private carService: CarService, private notificationService: NotificationService, private customerService: CustomerService, private router: Router) { }
 
   ngOnInit(): void {
-    this.setFileUploadedState(false);
+    this.photo = null;
 
     this.addCarForm = new FormGroup({
       customerFormControl: new FormControl(''),
@@ -56,11 +53,6 @@ export class AddCarComponent implements OnInit {
       const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
       return result * sortOrder;
     }
-  }
-
-  setFileUploadedState(state: boolean) {
-    this.fileUploadedSubject.next(state)
-    this.fileUploaded = state;
   }
 
   get customerFormControl() {
@@ -97,7 +89,7 @@ export class AddCarComponent implements OnInit {
       year: this.yearFormControl.value,
       license: this.licenseFormControl.value,
       date: this.dateFormControl.value,
-      picture: this.file,
+      pictureId: this.photo!.id, //TODO verify
     }
   }
 
@@ -117,7 +109,7 @@ export class AddCarComponent implements OnInit {
     })
   }
 
-  onFilechange(event: any) {
+  onFileChange(event: any) {
     this.file = event.target.files[0];
     this.uploadImage();
   }
@@ -127,17 +119,17 @@ export class AddCarComponent implements OnInit {
       this.carService.uploadImage(this.file).subscribe({
         error: () => {
           this.notificationService.notifyError();
-          this.setFileUploadedState(false);
+          this.photo = null;
         },
-        next: () => {
-          this.notificationService.notify('Datei wurde hochgeladen.');
-          this.setFileUploadedState(true);
+        next: (photo: Photo) => {
+          this.notificationService.notify(`Die Datei wurde erfolgreich hochgeladen.`);
+          this.photo = photo;
         }
       })
     }
   }
 
-  getImage(): SafeUrl {
-    return this.carService.getImage();
+  getPhotoSrc() {
+    return `data:${this.photo?.type};base64,${this.photo?.data}`; //TODO verify
   }
 }

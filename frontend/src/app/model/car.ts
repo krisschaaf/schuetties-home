@@ -6,7 +6,7 @@ export interface Car {
     year: string;
     license: string;
     date: Date;
-    picture: File;
+    pictureId: string;
 }
 
 export interface CarDTO {
@@ -16,5 +16,12 @@ export interface CarDTO {
     year: string;
     license: string;
     date: Date;
-    picture: File;
+    pictureId: string;
+}
+
+export interface Photo {
+    id: string;
+    name: string;
+    type: string;
+    data: any;
 }
