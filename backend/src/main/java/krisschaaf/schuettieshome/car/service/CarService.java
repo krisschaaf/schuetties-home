@@ -31,4 +31,12 @@ public class CarService {
     public void deleteAllCars() {
         this.carRepository.deleteAll();
     }
+
+    public void editCar(Car car) {
+        this.carRepository.save(car);
+    }
+
+    public void deleteCarById(String id) {
+        this.carRepository.deleteById(id);
+    }
 }

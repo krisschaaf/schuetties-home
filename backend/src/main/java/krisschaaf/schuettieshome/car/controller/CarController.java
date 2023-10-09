@@ -37,6 +37,18 @@ public class CarController {
         return this.carService.getAllCars();
     }
 
+    @PutMapping()
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void editCustomer(@RequestBody Car car) {
+        this.carService.editCar(car);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCarByID(@PathVariable String id) {
+        this.carService.deleteCarById(id);
+    }
+
     @DeleteMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteAllCars() {
