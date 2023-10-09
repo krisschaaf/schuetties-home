@@ -1,22 +1,24 @@
+import { Customer } from "./customer";
+
 export interface Car {
     id: string;
-    customerId: string;
+    customer: Customer;
     make: string;
     model: string;
     year: string;
     license: string;
     date: Date;
-    photoId: string;
+    photo: Photo;
 }
 
 export interface CarDTO {
-    customerId: string;
+    customer: Customer;
     make: string;
     model: string;
     year: string;
     license: string;
     date: Date;
-    photoId: string;
+    photo: Photo | null;
 }
 
 export interface Photo {

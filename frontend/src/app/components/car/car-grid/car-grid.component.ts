@@ -19,13 +19,14 @@ export class CarGridComponent {
   public rowData!: Car[];
 
   colDefs: ColDef[] = [
-    { field: 'customerId', headerName: 'Kunde' },
+    { field: 'customer.salutation', headerName: 'Anrede' },
+    { field: 'customer.firstname', headerName: 'Vorname' },
+    { field: 'customer.lastname', headerName: 'Nachname' },
     { field: 'make', headerName: 'Marke' },
     { field: 'model', headerName: 'Modell' },
     { field: 'year', headerName: 'Baujahr' },
     { field: 'license', headerName: 'Kennzeichen' },
-    { field: 'date', headerName: 'Eingeliegert am' },
-    { field: 'photoId', headerName: 'Bild' },
+    { field: 'date', headerName: 'Eingelagert am' },
   ];
 
   public defaultColDef: ColDef = {

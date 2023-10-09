@@ -81,13 +81,13 @@ export class AddCarComponent implements OnInit {
 
   buildCar(): CarDTO {
     return {
-      customerId: this.customerFormControl.value,
+      customer: this.customerFormControl.value,
       make: this.makeFormControl.value,
       model: this.modelFormControl.value,
       year: this.yearFormControl.value,
       license: this.licenseFormControl.value,
       date: this.dateFormControl.value,
-      photoId: this.photo ? this.photo.id : "",
+      photo: this.photo ? this.photo : null,
     }
   }
 
