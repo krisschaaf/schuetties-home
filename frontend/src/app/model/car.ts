@@ -8,7 +8,7 @@ export interface Car {
     year: string;
     license: string;
     date: Date;
-    photo: Photo;
+    photo: Photo | null;
 }
 
 export interface CarDTO {

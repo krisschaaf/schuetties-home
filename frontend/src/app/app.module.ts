@@ -38,6 +38,7 @@ import { GoBackComponent } from './components/go-back/go-back.component';
 import { AddCarComponent } from './components/car/add-car/add-car.component';
 import { CarGridComponent } from './components/car/car-grid/car-grid.component';
 import { ShowCarComponent } from './components/car/show-car/show-car.component';
+import { DeleteCarDialogComponent } from './components/car/show-car/delete-car-dialog/delete-car-dialog.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ShowCarComponent } from './components/car/show-car/show-car.component';
     GoBackComponent,
     AddCarComponent,
     CarGridComponent,
-    ShowCarComponent
+    ShowCarComponent,
+    DeleteCarDialogComponent
   ],
   imports: [
     BrowserModule,

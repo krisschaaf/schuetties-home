@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Car, Photo } from 'src/app/model/car';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Car, CarDTO, Photo } from 'src/app/model/car';
 import { Customer } from 'src/app/model/customer';
 import { CarService } from 'src/app/services/car.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { DeleteCarDialogComponent } from './delete-car-dialog/delete-car-dialog.component';
 
 @Component({
   selector: 'app-show-car',
@@ -18,27 +20,34 @@ export class ShowCarComponent implements OnInit{
   file!: File
   photo!: Photo | null;
   customers!: Customer[]
+  contentLoaded = false;
 
-  constructor(private route: ActivatedRoute, private carService: CarService, private customerService: CustomerService, private notificationService: NotificationService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private customerService: CustomerService, private notificationService: NotificationService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     const carId = this.route.snapshot.queryParamMap.get('id');
 
-    this.showCarForm = new FormGroup({
-      customerFormControl: new FormControl(''),
-      makeFormControl: new FormControl(''),
-      modelFormControl: new FormControl(''),
-      yearFormControl: new FormControl(''),
-      licenseFormControl: new FormControl(''),
-      dateFormControl: new FormControl(''),
-    });
-    // this.carService.getCarById(carId!).subscribe({
-    //   next: (value) => {
-    //   },
-    //   error: () => {
-    //       this.notificationService.notifyError();
-    //   },
-    // })
+    this.carService.getCarById(carId!).subscribe({
+      next: (value) => {
+        this.car = value;
+        
+        this.showCarForm = new FormGroup({
+          customerFormControl: new FormControl(this.car.customer),
+          makeFormControl: new FormControl(this.car.make),
+          modelFormControl: new FormControl(this.car.model),
+          yearFormControl: new FormControl(this.car.year),
+          licenseFormControl: new FormControl(this.car.license),
+          dateFormControl: new FormControl(this.car.date),
+        });
+
+        this.photo = value.photo
+
+        this.contentLoaded = true;
+      },
+      error: () => {
+          this.notificationService.notifyError();
+      },
+    })
 
     this.customerService.getCustomers().subscribe({
       error: () => {
@@ -87,8 +96,31 @@ export class ShowCarComponent implements OnInit{
     return this.showCarForm.get('dateFormControl') as FormControl;
   }
 
-  onEditCarFormHandler() {}
+  onChangeCarFormHandler() {
+    this.carService.editCarById(this.buildCar()).subscribe({
+      next: () => {
+        this.notificationService.notify('Die Änderungen wurden erfolgreich übernommen.');
+        this.router.navigateByUrl('/cars');
+      },
+      error: () => {
+        this.notificationService.notifyError();
+      }
+    });
+  }
 
+  buildCar(): Car {
+    return {
+      id: this.car.id,
+      customer: this.customerFormControl.value,
+      make: this.makeFormControl.value,
+      model: this.modelFormControl.value,
+      year: this.yearFormControl.value,
+      license: this.licenseFormControl.value,
+      date: this.dateFormControl.value,
+      photo: this.photo ? this.photo : null,
+    }
+  }
+  
   onFileChange(event: any) {
     this.file = event.target.files[0];
     this.uploadImage();
@@ -114,5 +146,13 @@ export class ShowCarComponent implements OnInit{
     } else {
       return `data:${this.photo!.type};base64,${this.photo!.data}`;
     }
+  }
+
+  onDeleteCar() {
+    this.dialog.open(DeleteCarDialogComponent, {
+      data: {
+        carId: this.car.id
+      }
+    });
   }
 }

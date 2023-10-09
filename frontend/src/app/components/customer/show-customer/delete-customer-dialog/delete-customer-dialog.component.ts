@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
-export interface DialogData {
+export interface CustomerDialogData {
   customerId: '';
 }
 
@@ -16,7 +16,7 @@ export interface DialogData {
 export class DeleteCustomerDialogComponent {
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, 
+    @Inject(MAT_DIALOG_DATA) public data: CustomerDialogData, 
     private customerService: CustomerService, 
     private notificationService: NotificationService,
     private router: Router

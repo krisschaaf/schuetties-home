@@ -1,5 +1,6 @@
 <div class="container flex-grow-1 flex-shrink-1">
-    <form [formGroup]="showCarForm" (ngSubmit)="onEditCarFormHandler()" class="show-car">
+    <mat-spinner *ngIf="!contentLoaded"></mat-spinner>
+    <form *ngIf="contentLoaded" [formGroup]="showCarForm" (ngSubmit)="onChangeCarFormHandler()" class="show-car">
         <h1 class="mb-4">Auto hinzufügen</h1>
 
         <mat-form-field class="w-100">
@@ -49,12 +50,14 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <div class="col d-flex justify-content-end mt-2 w-100">
-            <button mat-raised-button class="w-35" color="primary" type="submit">Hinzufügen</button>
+        <div class="col d-flex justify-content-between mt-2 w-100">
+            <button mat-raised-button color="error" type="button" (click)="onDeleteCar()">Auto
+                löschen</button>
+            <button mat-raised-button class="w-35" color="primary" type="submit">Änderungen übernehmen</button>
         </div>
-
+        
         <div class="col d-flex justify-content-end mt-2 w-100">
-            <button mat-raised-button class="w-35" color="secondary" type="button" [routerLink]="'/'">Abbrechen</button>
+            <button mat-raised-button class="w-35" color="secondary" type="button" [routerLink]="'/customers'">Abbrechen</button>
         </div>
     </form>
 </div>
