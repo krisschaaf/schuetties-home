@@ -9,8 +9,8 @@ import { CarDTO, Photo } from '../model/car';
   providedIn: 'root'
 })
 export class CarService {
-  private baseUrl = environment.backendBasePath + "car/";
-  private addCarUrl = this.baseUrl + "addCar";
+  private baseUrl = environment.backendBasePath + "cars/";
+  private addCarUrl = this.baseUrl + "car";
   private uploadImageUrl = this.baseUrl + "photos";
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }

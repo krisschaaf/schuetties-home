@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/car/photos")
+@RequestMapping("/cars/photos")
 @CrossOrigin("http://localhost:4200/")
 public class PhotoController {
 

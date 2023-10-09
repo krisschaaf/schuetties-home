@@ -80,10 +80,8 @@ export class AddCarComponent implements OnInit {
   }
 
   buildCar(): CarDTO {
-    const customer = this.customerFormControl.value; //TODO: get id
-
     return {
-      customerId: customer,
+      customerId: this.customerFormControl.value,
       make: this.makeFormControl.value,
       model: this.modelFormControl.value,
       year: this.yearFormControl.value,
@@ -91,10 +89,6 @@ export class AddCarComponent implements OnInit {
       date: this.dateFormControl.value,
       pictureId: this.photo ? this.photo.id : "",
     }
-  }
-
-  findSelectedCustomerInArray() {
-    
   }
 
   onAddCarFormHandler(): void {
@@ -132,7 +126,8 @@ export class AddCarComponent implements OnInit {
   getPhotoSrc(): string {
     if(!this.photo) {
       throw Error('Currently no photo uploaded!')
+    } else {
+      return `data:${this.photo!.type};base64,${this.photo!.data}`;
     }
-    return `data:${this.photo?.type};base64,${this.photo?.data}`;
   }
 }
