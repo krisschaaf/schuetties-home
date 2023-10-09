@@ -10,6 +10,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AgGridModule } from 'ag-grid-angular';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -61,6 +62,7 @@ import { CreateBillComponent } from './components/bill/create-bill/create-bill.c
   ],
   imports: [
     BrowserModule,
+    MatDividerModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
@@ -87,10 +89,10 @@ import { CreateBillComponent } from './components/bill/create-bill/create-bill.c
         ...env.httpInterceptor,
       },
     }),
-  ],
-  providers: [
     MatDatepickerModule,
     MatNativeDateModule,
+  ],
+  providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,

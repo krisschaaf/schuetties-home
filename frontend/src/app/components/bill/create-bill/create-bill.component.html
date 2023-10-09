@@ -1,12 +1,13 @@
 <div class="container flex-grow-1 flex-shrink-1">
     <form [formGroup]="createBillForm" (ngSubmit)="onCreateBillFormHandler()" class="create-bill">
         <h1 class="mb-4">Rechnung erstellen</h1>
+        <mat-divider></mat-divider>
 
         <mat-form-field class="w-100">
             <mat-label>Kunde</mat-label>
             <mat-select [formControl]="customerFormControl">
                 <mat-option *ngFor="let customer of customers" [value]="customer">
-                    {{customer.lastname + ', ' + customer.firstname + ' | ' + customer.city}}
+                    {{ customer.lastname + ', ' + customer.firstname + ' | ' + customer.city }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -16,25 +17,49 @@
             <input matInput formControlName="paymentAmountFormControl" />
         </mat-form-field>
 
-        <mat-card class="mb-3">
-            <mat-card-header>
-                <h5>Eingelagert bis:</h5>
-            </mat-card-header>
-            <mat-card-content class="d-flex justify-content-between">
-                <p>{{ todayDate.getDay() + '.' + todayDate.getMonth() + '.' + todayDate.getFullYear() + ' (Heute)'}}</p>
-            </mat-card-content>
-            <mat-card-footer class="px-3 mt-3 mb-2">
-                <h5>Datum ändern:</h5>
-                <mat-form-field class="mt-2">
-                    <mat-label>Eingelagert bis</mat-label>
-                    <input matInput formControlName="dateFormControl" [matDatepicker]="picker">
-                    <mat-hint>MM/TT/JJJJ</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </mat-card-footer>
+        <mat-divider></mat-divider>
+
+        <mat-form-field class="w-100">
+            <mat-label>Auto hinzufügen</mat-label>
+            <mat-select (valueChange)="addCarToBill($event)" [formControl]="carFormControl">
+                <mat-option *ngFor="let car of cars" [value]="car">
+                    {{ car.make + ' ' + car.model + ' ' + ' | ' + car.license }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-card *ngFor="let car of carsOnBill" class="mb-3">
+                <mat-card-header class="mb-3">
+                    <mat-card-title-group>
+                        <mat-card-title>Auto:</mat-card-title>
+                        <mat-card-subtitle>{{ car.make + ' ' + car.model + ' ' + ' | ' + car.license }}</mat-card-subtitle>
+                        <img *ngIf="car.photo" mat-card-md-image [src]="getPhotoSrc(car.photo)" >
+                      </mat-card-title-group>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+                <mat-card-content >
+                    <h5>Eingelagert bis:</h5>
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-0">{{ todayDate.getDay() + '.' + todayDate.getMonth() + '.' + todayDate.getFullYear() + ' (Heute)'}}</p>
+                    </div>
+                </mat-card-content>
+                <mat-card-footer class="px-3 mt-3 mb-2">
+                    <h5>Datum ändern:</h5>
+                    <mat-form-field class="mt-2">
+                        <mat-label>Eingelagert bis</mat-label>
+                        <input matInput formControlName="dateFormControl" [matDatepicker]="picker">
+                        <mat-hint>TT/MM/JJJJ</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </mat-card-footer>
+                <mat-divider></mat-divider>
+                <mat-card-actions>
+                    <button mat-raised-button (click)="deleteCarFromBill(car)">Auto von Rechnung entfernen</button>
+                </mat-card-actions>
         </mat-card>
 
+        <mat-divider></mat-divider>
 
         <div class="col d-flex justify-content-between mt-2 w-100">
             <button mat-raised-button class="w-40" color="secondary" type="button" [routerLink]="'/'">Abbrechen</button>

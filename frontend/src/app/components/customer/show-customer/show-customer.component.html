@@ -4,13 +4,14 @@
         class="add-customer">
         <h1 class="mb-4">Kunden bearbeiten</h1>
 
+        <mat-divider></mat-divider>
+
         <mat-form-field>
             <mat-label>Anrede</mat-label>
             <select matNativeControl formControlName="salutationFormControl">
-                <option value="frau">Frau</option>
-                <option value="herr">Herr</option>
-                <option value="nicht-binaer">Nicht binär</option>
-                <option value="divers">Divers</option>
+                <option value="Frau">Frau</option>
+                <option value="Herr">Herr</option>
+                <option value="Divers">Divers</option>
             </select>
         </mat-form-field>
 
@@ -30,6 +31,8 @@
             <mat-label>Email Adresse</mat-label>
             <input matInput formControlName="emailFormControl" />
         </mat-form-field>
+
+        <mat-divider></mat-divider>
 
         <div class="row">
             <mat-form-field class="col">
@@ -54,6 +57,8 @@
                 <input matInput formControlName="faxFormControl" />
             </mat-form-field>
         </div>
+
+        <mat-divider></mat-divider>
 
         <div class="row">
             <mat-form-field class="col">
@@ -83,6 +88,8 @@
             <mat-label>Kontonummer</mat-label>
             <input matInput formControlName="bankNumberFormControl" />
         </mat-form-field>
+
+        <mat-divider></mat-divider>
 
         <div class="row">
             <mat-form-field class="col">

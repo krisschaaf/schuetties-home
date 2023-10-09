@@ -20,8 +20,8 @@ export class CustomerGridComponent {
 
   colDefs: ColDef[] = [
     { field: 'salutation', headerName: 'Anrede' },
-    { field: 'firstname', headerName: 'Vorname' },
     { field: 'lastname', headerName: 'Nachname' },
+    { field: 'firstname', headerName: 'Vorname' },
     { field: 'email', headerName: 'E-Mail' },
     { field: 'telephonePrivate', headerName: 'Telefon Privat' },
     { field: 'telephoneBusiness', headerName: 'Telefon Gesch.' },

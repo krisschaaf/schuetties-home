@@ -2,13 +2,14 @@
     <form [formGroup]="addCustomerForm" (ngSubmit)="onAddCustomerFormHandler()" class="add-customer">
         <h1 class="mb-4">Kunden hinzufügen</h1>
 
+        <mat-divider></mat-divider>
+
         <mat-form-field>
             <mat-label>Anrede</mat-label>
             <mat-select formControlName="salutationFormControl">
-                <mat-option value="frau">Frau</mat-option>
-                <mat-option value="herr">Herr</mat-option>
-                <mat-option value="nicht-binaer">Nicht binär</mat-option>
-                <mat-option value="divers">Divers</mat-option>
+                <mat-option value="Frau">Frau</mat-option>
+                <mat-option value="Herr">Herr</mat-option>
+                <mat-option value="Divers">Divers</mat-option>
             </mat-select>
         </mat-form-field>
 
@@ -28,6 +29,8 @@
             <mat-label>Email Adresse</mat-label>
             <input matInput formControlName="emailFormControl" />
         </mat-form-field>
+
+        <mat-divider></mat-divider>
 
         <div class="row">
             <mat-form-field class="col">
@@ -53,6 +56,8 @@
             </mat-form-field>
         </div>
 
+        <mat-divider></mat-divider>
+
         <div class="row">
             <mat-form-field class="col">
                 <mat-label>Straße</mat-label>
@@ -76,6 +81,8 @@
                 <input matInput formControlName="cityFormControl" />
             </mat-form-field>
         </div>
+
+        <mat-divider></mat-divider>
 
         <mat-form-field class="w-100">
             <mat-label>Kontonummer</mat-label>
