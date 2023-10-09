@@ -89,7 +89,7 @@ export class AddCarComponent implements OnInit {
       year: this.yearFormControl.value,
       license: this.licenseFormControl.value,
       date: this.dateFormControl.value,
-      pictureId: this.photo!.id, //TODO verify
+      pictureId: this.photo ? this.photo.id : "",
     }
   }
 
@@ -129,7 +129,10 @@ export class AddCarComponent implements OnInit {
     }
   }
 
-  getPhotoSrc() {
-    return `data:${this.photo?.type};base64,${this.photo?.data}`; //TODO verify
+  getPhotoSrc(): string {
+    if(!this.photo) {
+      throw Error('Currently no photo uploaded!')
+    }
+    return `data:${this.photo?.type};base64,${this.photo?.data}`;
   }
 }
