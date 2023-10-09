@@ -155,4 +155,8 @@ export class ShowCarComponent implements OnInit{
       }
     });
   }
+
+  onGoToCustomer() {
+    this.router.navigateByUrl(`/customer?id=${this.car.customer.id}`);
+  }
 }
