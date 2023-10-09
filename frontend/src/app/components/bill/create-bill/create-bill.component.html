@@ -10,11 +10,13 @@
                     {{ customer.lastname + ', ' + customer.firstname + ' | ' + customer.city }}
                 </mat-option>
             </mat-select>
+            <mat-error>{{ getErrorMessageCustomerFormControl() }}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="w-100">
             <mat-label>Betrag (€) pro Monat</mat-label>
             <input matInput formControlName="paymentAmountFormControl" />
+            <mat-error>{{ getErrorMessagePaymentAmountFormControl() }}</mat-error>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -42,7 +44,7 @@
                     <mat-form-field class="mt-2">
                         <mat-label>Eingelagert bis</mat-label>
                         <input matInput (dateChange)="changeEndDate($event, billedCar)" [value]="todayDate" [matDatepicker]="picker">
-                        <mat-hint>TT/MM/JJJJ</mat-hint>
+                        <mat-hint>MM/TT/JJJJ</mat-hint>
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>

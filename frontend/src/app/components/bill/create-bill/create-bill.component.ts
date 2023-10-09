@@ -31,7 +31,7 @@ export class CreateBillComponent implements OnInit {
   ngOnInit(): void {
     this.createBillForm = new FormGroup({
       customerFormControl: new FormControl('', [Validators.required]),
-      paymentAmountFormControl: new FormControl('', [Validators.required]),
+      paymentAmountFormControl: new FormControl('', [Validators.required, Validators.pattern(new RegExp('^\\d+[.]\\d{2}$'))]),
       carFormControl: new FormControl(''),
     });
 
@@ -108,6 +108,20 @@ export class CreateBillComponent implements OnInit {
 
   get dateFormControl() {
     return this.createBillForm.get('dateFormControl') as FormControl;
+  }
+
+  getErrorMessageCustomerFormControl(): string {
+    return this.customerFormControl.hasError('required')
+      ? 'Es muss ein Kunde ausgewählt sein.'
+      : '';
+  }
+
+  getErrorMessagePaymentAmountFormControl(): string {
+    return this.paymentAmountFormControl.hasError('required')
+      ? 'Dieses Feld muss ausgefüllt sein.'
+      : this.paymentAmountFormControl.invalid
+      ? 'Der Preis muss z.B. 12.00 sein.'
+      : '';
   }
 
   buildBill(): BillDTO {
