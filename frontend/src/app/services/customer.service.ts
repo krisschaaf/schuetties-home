@@ -3,38 +3,34 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Customer, CustomerDTO } from '../model/customer';
-import { CustomerResponse, GetCustomersResponse } from '../model/CustomerResponse';
+import { CustomerResponse } from '../model/CustomerResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-  private baseUrl = environment.backendBasePath; 
-  private addCustomerUrl = this.baseUrl + "customers"; 
-  private getCustomersUrl = this.baseUrl + "customers"; 
-  private getCustomerByIdUrl = this.baseUrl + "customers"; 
-  private editCustomerByIdUrl = this.baseUrl + "customers"; 
-  private deleteCustomerByIdUrl = this.baseUrl + "customers"; 
+  private baseUrl = environment.backendBasePath + 'customers/'; 
+  private customerUrl = this.baseUrl + 'customer'; 
 
   constructor(private http: HttpClient) { }
 
   addCustomer(customer: CustomerDTO): Observable<any> {
-    return this.http.post<any>(this.addCustomerUrl, customer);
+    return this.http.post<any>(this.customerUrl, customer);
   }
 
   getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.getCustomersUrl);
+    return this.http.get<Customer[]>(this.customerUrl);
   }
 
   getCustomerById(id: string): Observable<Customer> {
-    return this.http.get<Customer>(`${this.getCustomerByIdUrl}/${id}`);
+    return this.http.get<Customer>(`${this.customerUrl}/${id}`);
   }
 
   editCustomerById(customer: Customer): Observable<any> {
-    return this.http.put<CustomerResponse>(this.editCustomerByIdUrl, customer);
+    return this.http.put<CustomerResponse>(this.customerUrl, customer);
   }
 
   deleteCustomerById(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.deleteCustomerByIdUrl}/${id}`);
+    return this.http.delete<any>(`${this.customerUrl}/${id}`);
   }
 }

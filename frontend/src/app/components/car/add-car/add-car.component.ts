@@ -116,7 +116,6 @@ export class AddCarComponent implements OnInit {
           this.photo = null;
         },
         next: (photo: Photo) => {
-          this.notificationService.notify(`Die Datei wurde erfolgreich hochgeladen.`);
           this.photo = photo;
         }
       })

@@ -13,7 +13,7 @@ export class CarService {
   private addCarUrl = this.baseUrl + "car";
   private uploadImageUrl = this.baseUrl + "photos";
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
+  constructor(private http: HttpClient) { }
 
   addCar(car: CarDTO): Observable<any> {
     return this.http.post<any>(this.addCarUrl, car);
