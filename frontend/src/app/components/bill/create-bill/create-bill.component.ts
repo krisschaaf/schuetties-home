@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Bill } from 'src/app/model/bill';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { BillDTO, BilledCar } from 'src/app/model/bill';
 import { Car, Photo } from 'src/app/model/car';
 import { Customer } from 'src/app/model/customer';
+import { BillService } from 'src/app/services/bill.service';
 import { CarService } from 'src/app/services/car.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -16,21 +18,21 @@ export class CreateBillComponent implements OnInit {
   createBillForm!: FormGroup;
   customers!: Customer[];
   cars!: Car[];
-  carsOnBill: Car[] = [];
+  billedCars: BilledCar[] = [];
   todayDate = new Date();
 
   constructor(
     private customerService: CustomerService, 
     private carService: CarService, 
     private notificationService: NotificationService,
+    private billService: BillService,
     ) { }
 
   ngOnInit(): void {
     this.createBillForm = new FormGroup({
-      customerFormControl: new FormControl(''),
-      paymentAmountFormControl: new FormControl(''),
+      customerFormControl: new FormControl('', [Validators.required]),
+      paymentAmountFormControl: new FormControl('', [Validators.required]),
       carFormControl: new FormControl(''),
-      dateFormControl: new FormControl(''),
     });
 
     this.customerService.getCustomers().subscribe({
@@ -70,15 +72,26 @@ export class CreateBillComponent implements OnInit {
   }
 
   addCarToBill(car: Car) {
-    this.carsOnBill.push(car);
+    const billedCar: BilledCar = {
+      car: car,
+      endDate: this.todayDate,
+    }
+    this.billedCars.push(billedCar);
     this.carFormControl.setValue('', {onlySelf: true});
   }
 
-  deleteCarFromBill(car: Car) {
-    const index = this.carsOnBill.findIndex(item => item.id == car.id);
+  changeEndDate(newEndDate: MatDatepickerInputEvent<any, any>, updatedBilledCar: BilledCar) {
+    updatedBilledCar.endDate = newEndDate.value;
+
+    let indexToUpdate = this.billedCars.findIndex(item => item.car.id === updatedBilledCar.car.id);
+    this.billedCars[indexToUpdate] = updatedBilledCar;
+  }
+
+  deleteCarFromBill(billedCar: BilledCar) {
+    const index = this.billedCars.findIndex(item => item.car.id == billedCar.car.id);
     if (index > -1) {
-      this.carsOnBill.splice(index, 1);
-   }
+      this.billedCars.splice(index, 1);
+    }
   }
 
   get customerFormControl() {
@@ -97,7 +110,26 @@ export class CreateBillComponent implements OnInit {
     return this.createBillForm.get('dateFormControl') as FormControl;
   }
 
-  onCreateBillFormHandler() {
+  buildBill(): BillDTO {
+    return {
+      customer: this.customerFormControl.value,
+      billedCars: this.billedCars,
+      paymentAmount: this.paymentAmountFormControl.value
+    }
+  }
 
+  onCreateBillFormHandler() {
+    if(this.billedCars.length > 0) {
+      this.billService.createBill(this.buildBill()).subscribe({
+        error: () => {
+          this.notificationService.notifyError();
+        },
+        next: () => {
+          this.notificationService.notify('Überprüfe die Eingaben.')
+        },
+      });
+    } else {
+      this.notificationService.notify('Es muss mindestens ein Auto angegeben werden.')
+    }
   }
 }

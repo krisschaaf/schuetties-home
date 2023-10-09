@@ -28,34 +28,28 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-card *ngFor="let car of carsOnBill" class="mb-3">
+        <mat-card *ngFor="let billedCar of billedCars" class="mb-3">
                 <mat-card-header class="mb-3">
                     <mat-card-title-group>
                         <mat-card-title>Auto:</mat-card-title>
-                        <mat-card-subtitle>{{ car.make + ' ' + car.model + ' ' + ' | ' + car.license }}</mat-card-subtitle>
-                        <img *ngIf="car.photo" mat-card-md-image [src]="getPhotoSrc(car.photo)" >
+                        <mat-card-subtitle>{{ billedCar.car.make + ' ' + billedCar.car.model + ' ' + ' | ' + billedCar.car.license }}</mat-card-subtitle>
+                        <img *ngIf="billedCar.car.photo" mat-card-md-image [src]="getPhotoSrc(billedCar.car.photo)" >
                       </mat-card-title-group>
                 </mat-card-header>
                 <mat-divider></mat-divider>
-                <mat-card-content >
+                <mat-card-content class="px-3 mt-2 mb-2" >
                     <h5>Eingelagert bis:</h5>
-                    <div class="d-flex justify-content-between">
-                        <p class="mb-0">{{ todayDate.getDay() + '.' + todayDate.getMonth() + '.' + todayDate.getFullYear() + ' (Heute)'}}</p>
-                    </div>
-                </mat-card-content>
-                <mat-card-footer class="px-3 mt-3 mb-2">
-                    <h5>Datum ändern:</h5>
                     <mat-form-field class="mt-2">
                         <mat-label>Eingelagert bis</mat-label>
-                        <input matInput formControlName="dateFormControl" [matDatepicker]="picker">
+                        <input matInput (dateChange)="changeEndDate($event, billedCar)" [value]="todayDate" [matDatepicker]="picker">
                         <mat-hint>TT/MM/JJJJ</mat-hint>
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
-                </mat-card-footer>
+                </mat-card-content>
                 <mat-divider></mat-divider>
                 <mat-card-actions>
-                    <button mat-raised-button (click)="deleteCarFromBill(car)">Auto von Rechnung entfernen</button>
+                    <button mat-raised-button (click)="deleteCarFromBill(billedCar)">Auto von Rechnung entfernen</button>
                 </mat-card-actions>
         </mat-card>
 
@@ -63,7 +57,7 @@
 
         <div class="col d-flex justify-content-between mt-2 w-100">
             <button mat-raised-button class="w-40" color="secondary" type="button" [routerLink]="'/'">Abbrechen</button>
-            <button mat-raised-button class="w-40" color="primary" type="submit">Weiter</button>
+            <button mat-raised-button class="w-40" color="primary" [disabled]="!this.createBillForm.valid" type="submit">Weiter</button>
         </div>
     </form>
 </div>
