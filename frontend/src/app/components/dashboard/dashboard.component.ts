@@ -40,6 +40,12 @@ export class DashboardComponent implements OnInit{
       title: 'Autos',
       subtitle: 'Neues Auto hinzufügen',
     },
+    {
+      basePath: '/createBill',
+      cssClass: 'dashboard__withAuth--tile tiles--bill',
+      title: 'Rechnungen',
+      subtitle: 'Neues Rechnung erstellen',
+    },
   ]
 
   constructor(public auth: AuthService) {}
