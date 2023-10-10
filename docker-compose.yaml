@@ -2,11 +2,11 @@ version: "3.8"
 
 services:
 
-  frontend:
-    build: ./frontend
-    ports: 
-      - 4200:80
-    container_name: frontend
+  # frontend:
+  #   build: ./frontend
+  #   ports: 
+  #     - 4200:80
+  #   container_name: frontend
 
   backend:
     build: ./backend

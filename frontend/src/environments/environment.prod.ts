@@ -1,5 +1,5 @@
 
-const apiUri = 'backend:8080/';
+const apiUri = 'http://localhost:8080/api/v1/';
 
 export const environment = {
   production: false,

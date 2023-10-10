@@ -1,5 +1,6 @@
 package krisschaaf.schuettieshome.car.controller;
 
+import krisschaaf.schuettieshome.Api;
 import krisschaaf.schuettieshome.car.model.Car;
 import krisschaaf.schuettieshome.car.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cars/car")
+@RequestMapping(Api.VERSION + "/cars/car")
 public class CarController {
     private CarService carService;
 

@@ -33,6 +33,12 @@ dependencies {
     implementation group: 'org.springframework.security', name: 'spring-security-core', version: '6.1.4'
 }
 
+processResources {
+    from("../frontend/dist/*") {
+        into("build/classes/static/")
+    }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

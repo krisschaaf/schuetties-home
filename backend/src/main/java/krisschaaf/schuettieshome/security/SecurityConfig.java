@@ -1,5 +1,6 @@
 package krisschaaf.schuettieshome.security;
 
+import krisschaaf.schuettieshome.Api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,8 +31,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests((authorizeRequests) ->
-                        authorizeRequests.anyRequest().authenticated())
+                .authorizeRequests((authorizeRequests) -> authorizeRequests
+                        .requestMatchers(Api.VERSION + "/**").authenticated())
                 .cors((cors) ->
                         cors.configurationSource(corsConfigurationSource()))
                 .oauth2ResourceServer((oauth2ResourceServer) ->
