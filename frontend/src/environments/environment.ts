@@ -1,6 +1,5 @@
 
 const apiUri = 'http://localhost:8080/';
-const frontendApi = 'http://localhost:4200/';
 
 export const environment = {
   production: false,
@@ -10,7 +9,7 @@ export const environment = {
     domain: "dev-opas-webapp.eu.auth0.com",
     clientId: "UJuUtkVyLKpIjz2A0zJtaqiAh6O5U56v",
     audience: "https://opas-webapp-api.com",
-    redirectUri: frontendApi,
+    redirectUri: window.location.origin,
     errorPath: "/error",
   },
   httpInterceptor: {

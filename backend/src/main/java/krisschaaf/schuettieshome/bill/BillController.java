@@ -8,7 +8,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bills/bill")
-@CrossOrigin("http://localhost:4200/")
 public class BillController {
     private BillService billService;
 
