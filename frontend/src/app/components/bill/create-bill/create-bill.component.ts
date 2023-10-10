@@ -17,7 +17,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class CreateBillComponent implements OnInit {
   createBillForm!: FormGroup;
   customers!: Customer[];
-  cars!: Car[];
+  availableCars: Car[] = [];
   billedCars: BilledCar[] = [];
   todayDate = new Date();
 
@@ -32,7 +32,7 @@ export class CreateBillComponent implements OnInit {
     this.createBillForm = new FormGroup({
       customerFormControl: new FormControl('', [Validators.required]),
       paymentAmountFormControl: new FormControl('', [Validators.required, Validators.pattern(new RegExp('^\\d+[.]\\d{2}$'))]),
-      carFormControl: new FormControl(''),
+      carFormControl: new FormControl({value: '', disabled: true}),
     });
 
     this.customerService.getCustomers().subscribe({
@@ -41,15 +41,6 @@ export class CreateBillComponent implements OnInit {
       },
       next: (customers) => {
         this.customers = customers.sort(this.dynamicSort('lastname'));
-      }
-    });
-
-    this.carService.getCars().subscribe({
-      error: () => {
-        this.notificationService.notifyError();
-      },
-      next: (cars) => {
-        this.cars = cars.sort(this.dynamicSort('make'));
       }
     });
   }
@@ -71,12 +62,25 @@ export class CreateBillComponent implements OnInit {
     }
   }
 
+  loadAvailableCarsOfCustomer(customer: Customer) {
+    this.carService.getCarsByCustomerId(customer.id).subscribe({
+      error: () => {
+        this.notificationService.notifyError();
+      },
+      next: (cars) => {
+        this.availableCars = cars.sort(this.dynamicSort('make'));
+        this.carFormControl.enable();
+      }
+    });
+  }
+
   addCarToBill(car: Car) {
     const billedCar: BilledCar = {
       car: car,
       endDate: this.todayDate,
     }
     this.billedCars.push(billedCar);
+    this.deleteCarFromAvailableCars(car);
     this.carFormControl.setValue('', {onlySelf: true});
   }
 
@@ -87,10 +91,19 @@ export class CreateBillComponent implements OnInit {
     this.billedCars[indexToUpdate] = updatedBilledCar;
   }
 
+
   deleteCarFromBill(billedCar: BilledCar) {
     const index = this.billedCars.findIndex(item => item.car.id == billedCar.car.id);
     if (index > -1) {
       this.billedCars.splice(index, 1);
+    }
+    this.availableCars.push(billedCar.car);
+  }
+
+  deleteCarFromAvailableCars(availableCar: Car) {
+    const index = this.availableCars.findIndex(item => item.id == availableCar.id);
+    if (index > -1) {
+      this.availableCars.splice(index, 1);
     }
   }
 

@@ -37,6 +37,12 @@ public class CarController {
         return this.carService.getAllCars();
     }
 
+    @GetMapping("/ofCustomer/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public List<Car> findCarsByCustomerId(@PathVariable String id) {
+        return this.carService.findCarsByCustomerId(id);
+    };
+
     @PutMapping()
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void editCustomer(@RequestBody Car car) {
