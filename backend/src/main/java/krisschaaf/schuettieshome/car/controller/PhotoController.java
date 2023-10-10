@@ -1,6 +1,6 @@
 package krisschaaf.schuettieshome.car.controller;
 
-import krisschaaf.schuettieshome.Api;
+import krisschaaf.schuettieshome.api.Api;
 import krisschaaf.schuettieshome.car.model.Photo;
 import krisschaaf.schuettieshome.car.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping(Api.VERSION + "/cars/photos")
+@RequestMapping(Api.PHOTO_PATH)
 public class PhotoController {
 
     private PhotoService photoService;

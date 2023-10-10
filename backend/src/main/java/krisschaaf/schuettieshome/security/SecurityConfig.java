@@ -1,6 +1,6 @@
 package krisschaaf.schuettieshome.security;
 
-import krisschaaf.schuettieshome.Api;
+import krisschaaf.schuettieshome.api.Api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

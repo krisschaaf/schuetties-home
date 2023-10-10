@@ -2,23 +2,13 @@ version: "3.8"
 
 services:
 
-  # frontend:
-  #   build: ./frontend
-  #   ports: 
-  #     - 4200:80
-  #   container_name: frontend
-
   backend:
     build: ./backend
     ports:
       - 8080:8080
     container_name: backend
     environment:
-      MONGO_URI: "mongodb://mongodb:27017"
-      AUTH0_CLIENT_SECRET: "i_cu0tzxehKc6d_Zj_y-yMtLlMh_yFIRKkoN5ngvkmE4LQpmszbibgFSdNtSzXCq"
-      # AUTH0_DOMAIN: ${AUTH0_DOMAIN}
-      # AUTH0_CLIENT_ID: ${AUTH0_CLIENT_ID}
-      # AUTH0_CALLBACK_URL: ${AUTH0_CALLBACK_URL}
+      # AUTH0_CLIENT_SECRET: ""
 
   database:
     image: mongo:4.0-xenial

@@ -1,6 +1,6 @@
 package krisschaaf.schuettieshome.bill;
 
-import krisschaaf.schuettieshome.Api;
+import krisschaaf.schuettieshome.api.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(Api.VERSION + "/bills/bill")
+@RequestMapping(Api.BILL_PATH)
 public class BillController {
     private BillService billService;
 

@@ -1,6 +1,6 @@
 package krisschaaf.schuettieshome.customer;
 
-import krisschaaf.schuettieshome.Api;
+import krisschaaf.schuettieshome.api.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(Api.VERSION + "/customers/customer")
+@RequestMapping(Api.CUSTOMER_PATH)
 public class CustomerController {
 
     private CustomerService customerService;
@@ -16,11 +16,6 @@ public class CustomerController {
     @Autowired
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
-    }
-
-    @GetMapping("/test")
-    public String test() {
-        return "OK";
     }
 
     @PostMapping()

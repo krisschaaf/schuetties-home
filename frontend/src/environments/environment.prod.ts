@@ -1,5 +1,6 @@
 
-const apiUri = 'http://localhost:8080/api/v1/';
+const apiVersion = 'v1';
+const apiUri = `http://localhost:8080/api/${apiVersion}/`;
 
 export const environment = {
   production: false,
