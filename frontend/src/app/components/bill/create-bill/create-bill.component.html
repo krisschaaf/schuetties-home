@@ -5,7 +5,7 @@
 
         <mat-form-field class="w-100">
             <mat-label>Kunde</mat-label>
-            <mat-select (valueChange)="loadAvailableCarsOfCustomer($event)" [formControl]="customerFormControl">
+            <mat-select (valueChange)="onNewCustomerChoosenHandler($event)" [formControl]="customerFormControl">
                 <mat-option *ngFor="let customer of customers" [value]="customer">
                     {{ customer.lastname + ', ' + customer.firstname + ' | ' + customer.city }}
                 </mat-option>
@@ -22,8 +22,11 @@
         <mat-divider></mat-divider>
 
         <mat-form-field class="w-100">
-            <mat-label>Auto hinzufügen</mat-label>
-            <mat-select (valueChange)="addCarToBill($event)" [formControl]="carFormControl">
+            <mat-label *ngIf="customerFormControl.pristine">Wähle zuerst einen Kunden aus.</mat-label> 
+            <mat-label *ngIf="!customerFormControl.pristine && availableCars.length > 0">Auto hinzufügen</mat-label>   
+            <mat-label *ngIf="!customerFormControl.pristine && availableCars.length === 0">Keine weiteren Autos verfügbar</mat-label>   
+
+            <mat-select (valueChange)="onNewCarChoosenHandler($event)" [formControl]="carFormControl">
                 <mat-option *ngFor="let car of availableCars" [value]="car">
                     {{ car.make + ' ' + car.model + ' ' + ' | ' + car.license }}
                 </mat-option>
@@ -38,20 +41,24 @@
                         <img *ngIf="billedCar.car.photo" mat-card-md-image [src]="getPhotoSrc(billedCar.car.photo)" >
                       </mat-card-title-group>
                 </mat-card-header>
+
                 <mat-divider></mat-divider>
+
                 <mat-card-content class="px-3 mt-2 mb-2" >
                     <h5>Eingelagert bis:</h5>
                     <mat-form-field class="mt-2">
                         <mat-label>Eingelagert bis</mat-label>
-                        <input matInput (dateChange)="changeEndDate($event, billedCar)" [value]="todayDate" [matDatepicker]="picker">
+                        <input matInput (dateChange)="onEndDateChangedHandler($event, billedCar)" [value]="todayDate" [matDatepicker]="picker">
                         <mat-hint>MM/TT/JJJJ</mat-hint>
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </mat-card-content>
+
                 <mat-divider></mat-divider>
+                
                 <mat-card-actions>
-                    <button mat-raised-button (click)="deleteCarFromBill(billedCar)">Auto von Rechnung entfernen</button>
+                    <button mat-raised-button (click)="onCarFromBillDeletedHandler(billedCar)">Auto von Rechnung entfernen</button>
                 </mat-card-actions>
         </mat-card>
 
