@@ -55,7 +55,7 @@
         <mat-card class="mb-3">
             <mat-card-header>Bild hochladen</mat-card-header>
             <mat-card-content>
-                <input (change)="this.onFileChange($event)" class="form-control" type="file" id="formFile">
+                <input (change)="this.onFileChangedHandler($event)" class="form-control" type="file" id="formFile">
             </mat-card-content>
             <img *ngIf="this.photo" mat-card-image [src]="this.getPhotoSrc()" alt="Hochgeladenes Bild"
                 class="m-3 shadow-sm rounded">

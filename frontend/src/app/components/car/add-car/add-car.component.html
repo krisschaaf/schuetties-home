@@ -11,6 +11,7 @@
                     {{customer.lastname + ', ' + customer.firstname + ' | ' + customer.city}}
                 </mat-option>
             </mat-select>
+            <mat-error>{{ getErrorMessageCustomerFormControl() }}</mat-error>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -42,7 +43,7 @@
         <mat-card class="mb-3">
             <mat-card-header>Bild hochladen</mat-card-header>
             <mat-card-content>
-                <input (change)="this.onFileChange($event)" class="form-control" type="file" id="formFile">
+                <input (change)="this.onFileChangedHandler($event)" class="form-control" type="file" id="formFile">
             </mat-card-content>
             <img *ngIf="this.photo" mat-card-image [src]="this.getPhotoSrc()" alt="Hochgeladenes Bild"
                 class="m-3 shadow-sm rounded">
@@ -59,7 +60,7 @@
         </mat-form-field>
 
         <div class="col d-flex justify-content-end mt-2 w-100">
-            <button mat-raised-button class="w-35" color="primary" type="submit">Hinzufügen</button>
+            <button mat-raised-button class="w-35" color="primary" [disabled]="!this.addCarForm.valid" type="submit">Hinzufügen</button>
         </div>
 
         <div class="col d-flex justify-content-end mt-2 w-100">

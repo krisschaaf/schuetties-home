@@ -8,6 +8,8 @@ import { CarService } from 'src/app/services/car.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { DeleteCarDialogComponent } from './delete-car-dialog/delete-car-dialog.component';
+import { Utils } from '../../utils/utils';
+import { PhotoUtils } from '../../utils/photoUtils';
 
 @Component({
   selector: 'app-show-car',
@@ -54,22 +56,9 @@ export class ShowCarComponent implements OnInit{
         this.notificationService.notifyError();
       },
       next: (customers) => {
-        this.customers = customers.sort(this.dynamicSort('lastname'));
+        this.customers = customers.sort(Utils.dynamicSort('lastname'));
       }
     })
-  }
-
-  // https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
-  dynamicSort(property: string) {
-    let sortOrder = 1;
-    if (property[0] === "-") {
-      sortOrder = -1;
-      property = property.substring(1);
-    }
-    return (a: any, b: any) => {
-      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-      return result * sortOrder;
-    }
   }
 
   get customerFormControl() {
@@ -121,7 +110,7 @@ export class ShowCarComponent implements OnInit{
     }
   }
   
-  onFileChange(event: any) {
+  onFileChangedHandler(event: any) {
     this.file = event.target.files[0];
     this.uploadImage();
   }
@@ -141,11 +130,7 @@ export class ShowCarComponent implements OnInit{
   }
 
   getPhotoSrc(): string {
-    if(!this.photo) {
-      throw Error('Currently no photo uploaded!')
-    } else {
-      return `data:${this.photo!.type};base64,${this.photo!.data}`;
-    }
+    return PhotoUtils.getPhotoSrc(this.photo!);
   }
 
   onDeleteCar() {

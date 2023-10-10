@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CarDTO, Photo } from 'src/app/model/car';
 import { Customer } from 'src/app/model/customer';
 import { CarService } from 'src/app/services/car.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Utils } from '../../utils/utils';
+import { PhotoUtils } from '../../utils/photoUtils';
 
 @Component({
   selector: 'app-add-car',
@@ -24,7 +26,7 @@ export class AddCarComponent implements OnInit {
     this.photo = null;
 
     this.addCarForm = new FormGroup({
-      customerFormControl: new FormControl(''),
+      customerFormControl: new FormControl('', [Validators.required]),
       makeFormControl: new FormControl(''),
       modelFormControl: new FormControl(''),
       yearFormControl: new FormControl(''),
@@ -37,22 +39,9 @@ export class AddCarComponent implements OnInit {
         this.notificationService.notifyError();
       },
       next: (customers) => {
-        this.customers = customers.sort(this.dynamicSort('lastname'));
+        this.customers = customers.sort(Utils.dynamicSort('lastname'));
       }
     })
-  }
-
-  // https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
-  dynamicSort(property: string) {
-    let sortOrder = 1;
-    if (property[0] === "-") {
-      sortOrder = -1;
-      property = property.substring(1);
-    }
-    return (a: any, b: any) => {
-      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-      return result * sortOrder;
-    }
   }
 
   get customerFormControl() {
@@ -79,6 +68,35 @@ export class AddCarComponent implements OnInit {
     return this.addCarForm.get('dateFormControl') as FormControl;
   }
 
+  getErrorMessageCustomerFormControl(): string {
+    return this.customerFormControl.hasError('required')
+      ? 'Es muss ein Kunde ausgewählt sein.'
+      : '';
+  }
+
+  onFileChangedHandler(event: any) {
+    this.file = event.target.files[0];
+    this.uploadImage();
+  }
+
+  uploadImage() {
+    if (this.file) {
+      this.carService.uploadImage(this.file).subscribe({
+        error: () => {
+          this.notificationService.notifyError();
+          this.photo = null;
+        },
+        next: (photo: Photo) => {
+          this.photo = photo;
+        }
+      })
+    }
+  }
+
+  getPhotoSrc(): string {
+    return PhotoUtils.getPhotoSrc(this.photo!);
+  }
+
   buildCar(): CarDTO {
     return {
       customer: this.customerFormControl.value,
@@ -101,32 +119,5 @@ export class AddCarComponent implements OnInit {
       this.router.navigateByUrl('/');
     },
     })
-  }
-
-  onFileChange(event: any) {
-    this.file = event.target.files[0];
-    this.uploadImage();
-  }
-
-  uploadImage() {
-    if (this.file) {
-      this.carService.uploadImage(this.file).subscribe({
-        error: () => {
-          this.notificationService.notifyError();
-          this.photo = null;
-        },
-        next: (photo: Photo) => {
-          this.photo = photo;
-        }
-      })
-    }
-  }
-
-  getPhotoSrc(): string {
-    if(!this.photo) {
-      throw Error('Currently no photo uploaded!')
-    } else {
-      return `data:${this.photo!.type};base64,${this.photo!.data}`;
-    }
   }
 }

@@ -8,6 +8,8 @@ import { BillService } from 'src/app/services/bill.service';
 import { CarService } from 'src/app/services/car.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Utils } from '../../utils/utils';
+import { PhotoUtils } from '../../utils/photoUtils';
 
 @Component({
   selector: 'app-create-bill',
@@ -40,7 +42,7 @@ export class CreateBillComponent implements OnInit {
         this.notificationService.notifyError();
       },
       next: (customers) => {
-        this.customers = customers.sort(this.dynamicSort('lastname'));
+        this.customers = customers.sort(Utils.dynamicSort('lastname'));
       }
     });
   }
@@ -111,7 +113,7 @@ export class CreateBillComponent implements OnInit {
         this.notificationService.notifyError();
       },
       next: (cars) => {
-        this.availableCars = cars.sort(this.dynamicSort('make'));
+        this.availableCars = cars.sort(Utils.dynamicSort('make'));
         this.carFormControl.enable();
       }
     });
@@ -125,20 +127,7 @@ export class CreateBillComponent implements OnInit {
   }
 
   getPhotoSrc(photo: Photo): string {
-    return `data:${photo.type};base64,${photo.data}`;
-  }
-
-  // https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
-  dynamicSort(property: string) {
-    let sortOrder = 1;
-    if (property[0] === "-") {
-      sortOrder = -1;
-      property = property.substring(1);
-    }
-    return (a: any, b: any) => {
-      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-      return result * sortOrder;
-    }
+    return PhotoUtils.getPhotoSrc(photo);
   }
 
   buildBill(): BillDTO {
