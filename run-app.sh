@@ -14,6 +14,6 @@ cd ../backend && ./gradlew build
 
 echo "Creating Container\r\n"
 
-cd .. && docker compose build --no-cache && docker compose up -d
+cd .. && docker compose up --build -d
 
 echo "App started\r\n"

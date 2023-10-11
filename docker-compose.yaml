@@ -2,13 +2,17 @@ version: "3.8"
 
 services:
 
+  frontend:
+    build: ./frontend
+    ports: 
+      - 4200:80
+    container_name: frontend
+
   backend:
     build: ./backend
     ports:
       - 8080:8080
     container_name: backend
-    environment:
-      # AUTH0_CLIENT_SECRET: ""
 
   database:
     image: mongo:4.0-xenial
