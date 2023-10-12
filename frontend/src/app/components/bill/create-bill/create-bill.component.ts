@@ -10,6 +10,7 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Utils } from '../../utils/utils';
 import { PhotoUtils } from '../../utils/photoUtils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-bill',
@@ -28,6 +29,7 @@ export class CreateBillComponent implements OnInit {
     private carService: CarService, 
     private notificationService: NotificationService,
     private billService: BillService,
+    private router: Router,
     ) { }
 
   ngOnInit(): void {
@@ -140,12 +142,13 @@ export class CreateBillComponent implements OnInit {
 
   onCreateBillFormHandler() {
     if(this.billedCars.length > 0) {
-      this.billService.createBill(this.buildBill()).subscribe({
+      this.billService.createAndGetPreviewBill(this.buildBill()).subscribe({
         error: () => {
           this.notificationService.notifyError();
         },
-        next: () => {
-          this.notificationService.notify('Überprüfe die Eingaben.')
+        next: (filepath: string) => {
+          this.notificationService.notify('Überprüfe die Eingaben.');
+          this.router.navigateByUrl(filepath);
         },
       });
     } else {

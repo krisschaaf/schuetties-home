@@ -16,4 +16,8 @@ export class BillService {
   createBill(bill: BillDTO): Observable<any> {
     return this.http.post<any>(this.billUrl, bill);
   }
+
+  createAndGetPreviewBill(bill: BillDTO): Observable<string> {
+    return this.http.post<string>(this.billUrl + '/getPreview', bill);
+  }
 }
