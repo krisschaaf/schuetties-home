@@ -1,6 +1,7 @@
 package krisschaaf.schuettieshome.security;
 
 import krisschaaf.schuettieshome.api.Api;
+import krisschaaf.schuettieshome.configuration.SpaWebFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -37,7 +39,8 @@ public class SecurityConfig {
                         cors.configurationSource(corsConfigurationSource()))
                 .oauth2ResourceServer((oauth2ResourceServer) ->
                         oauth2ResourceServer.jwt((jwt) -> jwt.decoder(jwtDecoder())))
-                .httpBasic(Customizer.withDefaults());
+                .httpBasic(Customizer.withDefaults())
+                .addFilterAfter(new SpaWebFilter(), BasicAuthenticationFilter.class);
         return http.build();
     }
 
