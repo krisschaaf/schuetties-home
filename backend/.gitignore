@@ -4,7 +4,7 @@ HELP.md
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-!**/src/main/resources/pdf-files/
+src/main/resources/pdf-files/
 
 ### STS ###
 .apt_generated
