@@ -24,5 +24,4 @@ public class Car {
     Customer customer;
     @DBRef
     Photo photo;
-
 }

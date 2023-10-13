@@ -46,6 +46,7 @@ public class Converter {
             document.addCreationDate();
 
             var worker = XMLWorkerHelper.getInstance();
+
             var cssInput = new ByteArrayInputStream(css.getBytes(UTF8));
             var htmlInput = new ByteArrayInputStream(htmlString.getBytes(UTF8));
 

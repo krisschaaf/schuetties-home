@@ -1,25 +1,96 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Template</title>
-</head>
-<body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{car-bill-template.css}" rel="stylesheet" type="text/css"/>
+        <title></title>
+    </head>
 
-<h1>This is just a sample html page</h1>
+    <body>
+        <div style="display: flex">
+            <img th:src="@{'data:' + photoType + ';base64,' + photoData}">
+            <div>
+                <p class="paragraph">Hallenplatz Vermietung</p>
+                <p>Husumer Str. 74 </p>
+                <p>25821 Bredstedt</p>
+            </div>
+        </div>
 
-<h2>Below are the details that were passed to the html page</h2>
+        <div style="display: flex; justify-content: space-between">
+            <p>Karen Schütt, Husumer Str. 76, 25821 Bredstedt</p>
+            <p th:text="${'Datum: ' + todayDate.getDay() + '.' + todayDate.getMonth() + '.' + todayDate.getYear()}"></p>
+        </div>
 
-<p th:text="${'Name    : ' + firstName}"></p>
-<p th:text="${'Id     :' + id}"></p>
+        <div class="d-flex">
+            <p th:text="${customer.getFirstname() + ' ' + customer.getLastname()}" class="paragraph"></p>
+            <p th:text="${customer.getStreet() + ' ' + customer.getHousingNumber()}"></p>
+            <p th:text="${customer.getPostalCode() + ' ' + customer.getCity()}"></p>
+        </div>
 
-<p><b>You can create the page the way you wish to have your PDF file using HTML tags</b></p>
+        <div>
+            <div>
+                <p>Rechnung</p>
+                <p>- Stellplatz-Miete -</p>
+            </div>
 
-<p><b>Bootstrap can be added to design. Images can be added. All according to your preference</b></p>
+            <p>Vielen Dank für den Auftrag, den ich gerne für Sie erledigt habe. Dafür berechne ich:</p>
 
-</body>
+            <table summary="summary">
+                <thead>
+                <tr>
+                    <th> Typ </th>
+                    <th> Kennzeichen </th>
+                    <th> Zeitraum </th>
+                    <th>
+                        <p> Betrag </p>
+                        <p th:text="${paymentAmount + ',-€ mtl.'}"></p>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="billedCar: ${billedCars}">
+                    <td th:text="${billedCar.car.getMake()}"/>
+                    <td th:text="${billedCar.car.getModel()}"/>
+                    <td th:text="${billedCar.getEndDate().getDay() + '.' + billedCar.getEndDate().getMonth() + '.' + billedCar.getEndDate().getYear()}"/>
+                    <td th:text="${paymentAmount}"/>
+                </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <div>
+                    <p>Gesamtbetrag</p>
+                    <p>TODO</p>
+                </div>
+                <p>Der Betrag enthält keine MwSt.</p>
+            </div>
+        </div>
+
+        <div>
+            <p>Ich bitte um Überweisung des Gesamtbertrages auf das Konto bei der</p>
+            <p>RV Bank, Bredstedt DE66 2176 3542 0002 7337 73</p>
+        </div>
+
+        <div>
+            <div>
+                <p>Steuer Nr.: 17/182/01534</p>
+                <p>Telefon: 04671 2000</p>
+                <p>www.otto-schuett@t-online.de</p>
+            </div>
+            <div>
+                <div>
+                    <p>Anschrift:</p>
+                </div>
+                <div>
+                    <p>Karen Schütt</p>
+                    <p>Husumer Straße 76</p>
+                    <p>25821 Bredstedt</p>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
 
 

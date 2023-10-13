@@ -1,6 +1,5 @@
 package krisschaaf.schuettieshome.bill.service;
 
-import com.itextpdf.text.DocumentException;
 import krisschaaf.schuettieshome.bill.model.Bill;
 import krisschaaf.schuettieshome.bill.utils.Converter;
 import krisschaaf.schuettieshome.bill.utils.PDFInfo;
@@ -10,6 +9,10 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.Date;
 
 @Component
 public class PDFService {
@@ -21,7 +24,7 @@ public class PDFService {
         this.springTemplateEngine = springTemplateEngine;
     }
 
-    public String savePDF(Bill bill) throws IOException, DocumentException {
+    public String savePDF(Bill bill) throws IOException {
         Context context = createContext(bill);
 
         var filename = new String(bill.getId() +  ".pdf");
@@ -30,7 +33,9 @@ public class PDFService {
         var htmlContent = springTemplateEngine.process("car-bill-template", context);
         var xHtmlContent = Converter.htmlToXHtml(htmlContent);
 
-        Converter.htmlToPDF(xHtmlContent, "", filepath, PDFInfo.getDefaultPDFInfo(bill));
+        var cssContent = new String(Files.readAllBytes(Paths.get("src/main/resources/templates/car-bill-template.css")));
+
+        Converter.htmlToPDF(xHtmlContent, cssContent, filepath, PDFInfo.getDefaultPDFInfo(bill));
 
         return filepath;
     }
@@ -38,9 +43,17 @@ public class PDFService {
     private static Context createContext(Bill bill) {
         var context = new Context();
 
-        context.setVariable("firstName",bill.getCustomer().getFirstname());
-        context.setVariable("id",bill.getCustomer().getId());
+        context.setVariable("customer", bill.getCustomer());
+        context.setVariable("paymentAmount", bill.getPaymentAmount());
+        context.setVariable("billedCars", bill.getBilledCars());
+        context.setVariable("todayDate", new Date());
+        context.setVariable("photoData", Base64.getEncoder().encodeToString(bill.getBilledCars().get(1).getCar().getPhoto().getData()));
+        context.setVariable("photoType",bill.getBilledCars().get(1).getCar().getPhoto().getType());
 
         return context;
+    }
+
+    private static String buildDateString(Date date) {
+        return String.valueOf(date.getDay() + '.' + date.getMonth() + '.' + date.getYear());
     }
 }
