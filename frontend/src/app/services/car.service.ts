@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Car, CarDTO, Photo } from '../model/car';
@@ -11,7 +10,7 @@ import { Car, CarDTO, Photo } from '../model/car';
 export class CarService {
   private baseUrl = environment.backendBasePath + "cars/";
   private carUrl = this.baseUrl + "car";
-  private photoUrl = this.baseUrl + "photos";
+  private photoUrl = this.baseUrl + "photo";
 
   constructor(private http: HttpClient) { }
 
