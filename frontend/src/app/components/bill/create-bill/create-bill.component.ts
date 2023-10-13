@@ -11,6 +11,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { Utils } from '../../utils/utils';
 import { PhotoUtils } from '../../utils/photoUtils';
 import { Router } from '@angular/router';
+import { StringResponse } from 'src/app/model/utils';
 
 @Component({
   selector: 'app-create-bill',
@@ -143,13 +144,13 @@ export class CreateBillComponent implements OnInit {
   onCreateBillFormHandler() {
     if(this.billedCars.length > 0) {
       this.billService.createAndGetPreviewBill(this.buildBill()).subscribe({
-        error: () => {
+        error: (error) => {
           this.notificationService.notifyError();
+          console.log(error)
         },
-        next: (filepath: string) => {
-          this.notificationService.notify('Überprüfe die Eingaben.');
-          this.router.navigateByUrl(filepath);
-        },
+        next: (stringResponse: StringResponse) => {
+          this.notificationService.notify(stringResponse.response)
+        }
       });
     } else {
       this.notificationService.notify('Es muss mindestens ein Auto angegeben werden.')

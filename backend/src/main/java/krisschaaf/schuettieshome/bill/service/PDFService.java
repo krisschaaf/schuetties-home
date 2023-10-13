@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Date;
 
@@ -24,18 +21,19 @@ public class PDFService {
         this.springTemplateEngine = springTemplateEngine;
     }
 
-    public String savePDF(Bill bill) throws IOException {
+    public String savePDF(Bill bill) {
         Context context = createContext(bill);
 
         var filename = new String(bill.getId() +  ".pdf");
         var filepath = new String("src/main/resources/pdf-files//" + filename);
 
         var htmlContent = springTemplateEngine.process("car-bill-template", context);
-        var xHtmlContent = Converter.htmlToXHtml(htmlContent);
-
-        var cssContent = new String(Files.readAllBytes(Paths.get("src/main/resources/templates/car-bill-template.css")));
-
-        Converter.htmlToPDF(xHtmlContent, cssContent, filepath, PDFInfo.getDefaultPDFInfo(bill));
+        try {
+            var xHtmlContent = Converter.htmlToXHtml(htmlContent);
+            Converter.htmlToPDF(xHtmlContent, filepath, PDFInfo.getDefaultPDFInfo(bill));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return filepath;
     }

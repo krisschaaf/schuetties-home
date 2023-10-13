@@ -36,7 +36,7 @@ dependencies {
     implementation group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.1.2.RELEASE'
     implementation group: 'org.thymeleaf', name: 'thymeleaf', version: '3.1.2.RELEASE'
     implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.3'
-    implementation group: 'com.itextpdf.tool', name: 'xmlworker', version: '5.4.1'
+    implementation group: 'com.itextpdf', name: 'html2pdf', version: '5.0.1'
     implementation group: 'net.sf.jtidy', name: 'jtidy', version: 'r938'
 }
 

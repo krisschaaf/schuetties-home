@@ -4,27 +4,65 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link th:href="@{car-bill-template.css}" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" type="text/css">
         <title></title>
+        <style type="text/css">
+            .flex-container {
+                display: flex;
+                width: 100%;
+            }
+
+            .flex-container-end {
+                display: flex;
+                /*width: 100%;*/
+                justify-content: end;
+                align-items: center;
+            }
+
+            .flex-column-item{
+                flex-grow: 1;
+                flex-shrink: 0;
+            }
+
+            .flex-column-item-basis{
+                flex-grow: 1;
+                flex-shrink: 0;
+                flex-basis: 40%;
+            }
+
+            .flex-column-item-end {
+                flex-grow: 0;
+                flex-shrink: 0;
+            }
+
+            p {
+                margin-bottom: 0 !important;
+            }
+        </style>
     </head>
 
     <body>
-        <div style="display: flex">
-            <img th:src="@{'data:' + photoType + ';base64,' + photoData}">
-            <div>
-                <p class="paragraph">Hallenplatz Vermietung</p>
-                <p>Husumer Str. 74 </p>
-                <p>25821 Bredstedt</p>
+        <div class="flex-container">
+            <img class="flex-column-item-basis" th:src="@{${'data:' + photoType + ';base64,' + photoData}}" alt="car-image"
+                 height="150" width="150"/>
+            <div class="flex-column-item flex-container-end">
+                <div class="flex-column-item-end mb-0">
+                    <p>Hallenplatz Vermietung</p>
+                    <p >Husumer Str. 74 </p>
+                    <p>25821 Bredstedt</p>
+                </div>
             </div>
         </div>
 
-        <div style="display: flex; justify-content: space-between">
-            <p>Karen Schütt, Husumer Str. 76, 25821 Bredstedt</p>
-            <p th:text="${'Datum: ' + todayDate.getDay() + '.' + todayDate.getMonth() + '.' + todayDate.getYear()}"></p>
+        <div class="flex-container ">
+            <p class="flex-column-item">Karen Schütt, Husumer Str. 76, 25821 Bredstedt</p>
+            <div class="flex-container-end">
+                <p class="flex-column-item-end" th:text="${'Datum: ' + todayDate.getDay() + '.' + todayDate.getMonth() + '.' + todayDate.getYear()}"></p>
+            </div>
         </div>
 
-        <div class="d-flex">
-            <p th:text="${customer.getFirstname() + ' ' + customer.getLastname()}" class="paragraph"></p>
+        <div>
+            <p th:text="${customer.getFirstname() + ' ' + customer.getLastname()}"></p>
             <p th:text="${customer.getStreet() + ' ' + customer.getHousingNumber()}"></p>
             <p th:text="${customer.getPostalCode() + ' ' + customer.getCity()}"></p>
         </div>
@@ -51,8 +89,8 @@
                 </thead>
                 <tbody>
                 <tr th:each="billedCar: ${billedCars}">
-                    <td th:text="${billedCar.car.getMake()}"/>
-                    <td th:text="${billedCar.car.getModel()}"/>
+                    <td th:text="${billedCar.car.getMake() + ' ' + billedCar.car.getModel()}"/>
+                    <td th:text="${billedCar.car.getLicense()}"/>
                     <td th:text="${billedCar.getEndDate().getDay() + '.' + billedCar.getEndDate().getMonth() + '.' + billedCar.getEndDate().getYear()}"/>
                     <td th:text="${paymentAmount}"/>
                 </tr>

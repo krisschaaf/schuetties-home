@@ -4,6 +4,7 @@ import com.itextpdf.text.DocumentException;
 import krisschaaf.schuettieshome.api.Api;
 import krisschaaf.schuettieshome.bill.model.Bill;
 import krisschaaf.schuettieshome.bill.service.BillService;
+import krisschaaf.schuettieshome.bill.utils.StringResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,6 @@ public class BillController {
     @Autowired
     public BillController(BillService billService) {
         this.billService = billService;
-    }
-
-    @PostMapping("/getPreview")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String createBillAndReturnPreviewLink(@RequestBody Bill bill) throws DocumentException, IOException {
-        return this.billService.createBillAndReturnPreviewLink(bill);
     }
 
     @PostMapping()
@@ -60,5 +55,11 @@ public class BillController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteAll() {
         this.billService.deleteAll();
+    }
+
+    @PostMapping("/getPreview")
+    @ResponseStatus(HttpStatus.CREATED)
+    public StringResponse createBillAndReturnPreviewLink(@RequestBody Bill bill) throws DocumentException, IOException {
+        return new StringResponse(this.billService.createBillAndReturnPreviewLink(bill));
     }
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { BillDTO } from '../model/bill';
 import { Observable } from 'rxjs';
+import { StringResponse } from '../model/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class BillService {
     return this.http.post<any>(this.billUrl, bill);
   }
 
-  createAndGetPreviewBill(bill: BillDTO): Observable<string> {
-    return this.http.post<string>(this.billUrl + '/getPreview', bill);
+  createAndGetPreviewBill(bill: BillDTO): Observable<StringResponse> {
+    return this.http.post<StringResponse>(this.billUrl + '/getPreview', bill);
   }
 }
