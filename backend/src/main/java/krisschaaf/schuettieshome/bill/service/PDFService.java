@@ -52,7 +52,7 @@ public class PDFService {
         context.setVariable("pricePerMonthAsLong", bill.getPricePerMonthAsLong());
         context.setVariable("fullPayment", fullPayment);
         context.setVariable("billedCars", bill.getBilledCars());
-        context.setVariable("todayDate", new Date());
+        context.setVariable("todayDate", Converter.dateToString(new Date()));
         context.setVariable("photoData", Base64.getEncoder().encodeToString(bill.getBilledCars().get(1).getCar().getPhoto().getData()));
         context.setVariable("photoType",bill.getBilledCars().get(1).getCar().getPhoto().getType());
 

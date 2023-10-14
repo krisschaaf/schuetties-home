@@ -1,5 +1,6 @@
 package krisschaaf.schuettieshome.bill.model;
 
+import krisschaaf.schuettieshome.bill.utils.Converter;
 import krisschaaf.schuettieshome.car.model.Car;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -30,17 +31,10 @@ public class BilledCar {
     }
 
     public String getStartDateAsString() {
-        return this.getDateString(this.car.getDate());
+        return Converter.dateToString(this.car.getDate());
     }
 
     public String getEndDateAsString() {
-        return this.getDateString(this.endDate);
-    }
-
-    private static String getDateString(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        var month = String.valueOf(calendar.get(Calendar.MONTH) + 1); //month method is indexed → january returns 0
-        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + '.' + month + '.' + calendar.get(Calendar.YEAR);
+        return Converter.dateToString(this.endDate);
     }
 }

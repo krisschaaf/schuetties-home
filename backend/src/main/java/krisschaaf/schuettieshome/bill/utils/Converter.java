@@ -7,6 +7,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Converter {
 
@@ -32,5 +34,13 @@ public class Converter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String dateToString(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        var month = String.valueOf(calendar.get(Calendar.MONTH) + 1); //month method is indexed → january returns 0
+        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + '.' + month + '.' + calendar.get(Calendar.YEAR);
+
     }
 }
