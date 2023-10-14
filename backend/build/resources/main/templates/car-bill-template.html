@@ -43,8 +43,8 @@
 
     <body>
         <div class="flex-container">
-            <img class="flex-column-item-basis" th:src="@{${'data:' + photoType + ';base64,' + photoData}}" alt="car-image"
-                 height="150" width="150"/>
+<!--            <img class="flex-column-item-basis" th:src="@{${'data:' + photoType + ';base64,' + photoData}}" alt="car-image"-->
+<!--                 height="150" width="150"/>-->
             <div class="flex-column-item flex-container-end">
                 <div class="flex-column-item-end mb-0">
                     <p>Hallenplatz Vermietung</p>
@@ -83,31 +83,31 @@
                     <th> Zeitraum </th>
                     <th>
                         <p> Betrag </p>
-                        <p th:text="${paymentAmount + ',-€ mtl.'}"></p>
+                        <p th:text="${pricePerMonth + ',-€ mtl.'}"></p>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="billedCar: ${billedCars}">
-                    <td th:text="${billedCar.car.getMake() + ' ' + billedCar.car.getModel()}"/>
-                    <td th:text="${billedCar.car.getLicense()}"/>
-                    <td th:text="${billedCar.getEndDate().getDay() + '.' + billedCar.getEndDate().getMonth() + '.' + billedCar.getEndDate().getYear()}"/>
-                    <td th:text="${paymentAmount}"/>
-                </tr>
+                    <tr th:each="billedCar: ${billedCars}">
+                        <td th:text="${billedCar.car.getMake() + ' ' + billedCar.car.getModel()}"/>
+                        <td th:text="${billedCar.car.getLicense()}"/>
+                        <td th:text="${billedCar.getStartDateAsString() + ' - ' + billedCar.getEndDateAsString()}"/>
+                        <td th:text="${billedCar.getDateDifferenceInDays() + ' Tage: ' + billedCar.getPricePerCar(pricePerMonthAsLong) +'€'}"/>
+                    </tr>
                 </tbody>
             </table>
 
             <div>
                 <div>
                     <p>Gesamtbetrag</p>
-                    <p>TODO</p>
+                    <p th:text="${ fullPayment + '€'}"></p>
                 </div>
                 <p>Der Betrag enthält keine MwSt.</p>
             </div>
         </div>
 
         <div>
-            <p>Ich bitte um Überweisung des Gesamtbertrages auf das Konto bei der</p>
+            <p>Ich bitte um Überweisung des Gesamtbetrages auf das Konto bei der</p>
             <p>RV Bank, Bredstedt DE66 2176 3542 0002 7337 73</p>
         </div>
 

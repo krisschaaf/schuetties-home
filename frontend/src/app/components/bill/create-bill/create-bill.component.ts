@@ -36,7 +36,7 @@ export class CreateBillComponent implements OnInit {
   ngOnInit(): void {
     this.createBillForm = new FormGroup({
       customerFormControl: new FormControl('', [Validators.required]),
-      paymentAmountFormControl: new FormControl('', [Validators.required, Validators.pattern(new RegExp('^\\d+[.]\\d{2}$'))]),
+      pricePerMonthFormControl: new FormControl('', [Validators.required, Validators.pattern(new RegExp('^\\d+[.]\\d{2}$'))]),
       carFormControl: new FormControl({value: '', disabled: true}),
     });
 
@@ -54,8 +54,8 @@ export class CreateBillComponent implements OnInit {
     return this.createBillForm.get('customerFormControl') as FormControl;
   }
 
-  get paymentAmountFormControl() {
-    return this.createBillForm.get('paymentAmountFormControl') as FormControl;
+  get pricePerMonthFormControl() {
+    return this.createBillForm.get('pricePerMonthFormControl') as FormControl;
   }
 
   get carFormControl() {
@@ -72,10 +72,10 @@ export class CreateBillComponent implements OnInit {
       : '';
   }
 
-  getErrorMessagePaymentAmountFormControl(): string {
-    return this.paymentAmountFormControl.hasError('required')
+  getErrorMessagePricePerMonthFormControl(): string {
+    return this.pricePerMonthFormControl.hasError('required')
       ? 'Dieses Feld muss ausgefüllt sein.'
-      : this.paymentAmountFormControl.invalid
+      : this.pricePerMonthFormControl.invalid
       ? 'Der Preis muss z.B. 12.00 sein.'
       : '';
   }
@@ -137,7 +137,7 @@ export class CreateBillComponent implements OnInit {
     return {
       customer: this.customerFormControl.value,
       billedCars: this.billedCars,
-      paymentAmount: this.paymentAmountFormControl.value
+      pricePerMonth: this.pricePerMonthFormControl.value
     }
   }
 

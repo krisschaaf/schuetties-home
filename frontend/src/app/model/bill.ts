@@ -5,13 +5,13 @@ export interface Bill {
     id: string;
     customer: Customer;
     billedCars: BilledCar[];
-    paymentAmount: string;
+    pricePerMonth: string;
 }
 
 export interface BillDTO {
     customer: Customer;
     billedCars: BilledCar[];
-    paymentAmount: string;
+    pricePerMonth: string;
 }
 
 export interface BilledCar {

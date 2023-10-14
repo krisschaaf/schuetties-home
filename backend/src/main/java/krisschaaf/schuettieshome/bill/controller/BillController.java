@@ -1,25 +1,30 @@
 package krisschaaf.schuettieshome.bill.controller;
 
-import com.itextpdf.text.DocumentException;
 import krisschaaf.schuettieshome.api.Api;
 import krisschaaf.schuettieshome.bill.model.Bill;
 import krisschaaf.schuettieshome.bill.service.BillService;
+import krisschaaf.schuettieshome.bill.service.PDFService;
 import krisschaaf.schuettieshome.bill.utils.StringResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping(Api.BILL_PATH)
 public class BillController {
     private BillService billService;
+    private PDFService pdfService;
+//    private PDFCarBillService PDFCarBillService;
 
     @Autowired
-    public BillController(BillService billService) {
+    public BillController(BillService billService,
+//                          PDFCarBillService PDFCarBillService,
+                          PDFService pdfService) {
         this.billService = billService;
+//        this.PDFCarBillService = PDFCarBillService;
+        this.pdfService = pdfService;
     }
 
     @PostMapping()
@@ -59,7 +64,10 @@ public class BillController {
 
     @PostMapping("/getPreview")
     @ResponseStatus(HttpStatus.CREATED)
-    public StringResponse createBillAndReturnPreviewLink(@RequestBody Bill bill) throws DocumentException, IOException {
-        return new StringResponse(this.billService.createBillAndReturnPreviewLink(bill));
+    public StringResponse createBillAndReturnPreviewLink(@RequestBody Bill bill) {
+        Bill storedBill = this.billService.createBill(bill);
+        var filePath = this.pdfService.savePDFLocal(storedBill);
+
+        return new StringResponse(filePath);
     }
 }

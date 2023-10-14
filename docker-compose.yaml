@@ -13,6 +13,8 @@ services:
     ports:
       - 8080:8080
     container_name: backend
+    volumes:
+      - schuetties-home:/backend
 
   database:
     image: mongo:4.0-xenial
