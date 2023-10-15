@@ -1,15 +1,16 @@
 package krisschaaf.schuettieshome.bill.service;
 
+import com.itextpdf.html2pdf.HtmlConverter;
 import krisschaaf.schuettieshome.bill.model.Bill;
 import krisschaaf.schuettieshome.bill.model.BilledCar;
 import krisschaaf.schuettieshome.bill.utils.Converter;
-import krisschaaf.schuettieshome.bill.utils.PDFInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
-import java.util.Base64;
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 @Component
@@ -22,21 +23,17 @@ public class PDFService {
         this.springTemplateEngine = springTemplateEngine;
     }
 
-    public String savePDFLocal(Bill bill) {
+    public byte[] createPDFByteArray(Bill bill) throws UnsupportedEncodingException {
         Context context = createContext(bill);
 
-        var filename = new String(bill.getId() +  ".pdf");
-        var filepath = new String("src/main/resources/pdf-files//" + filename);
+        var out = new ByteArrayOutputStream();
 
-        try {
-            var htmlContent = springTemplateEngine.process("car-bill-template", context);
-            var xHtmlContent = Converter.htmlToXHtml(htmlContent);
-            Converter.htmlToPDF(xHtmlContent, filepath, PDFInfo.getDefaultPDFInfo(bill));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        var htmlContent = springTemplateEngine.process("car-bill-template", context);
+        var xHtmlContent = Converter.htmlToXHtml(htmlContent);
 
-        return filepath;
+        HtmlConverter.convertToPdf(xHtmlContent, out);
+
+        return out.toByteArray();
     }
 
     private static Context createContext(Bill bill) {
@@ -53,8 +50,6 @@ public class PDFService {
         context.setVariable("fullPayment", fullPayment);
         context.setVariable("billedCars", bill.getBilledCars());
         context.setVariable("todayDate", Converter.dateToString(new Date()));
-        context.setVariable("photoData", Base64.getEncoder().encodeToString(bill.getBilledCars().get(1).getCar().getPhoto().getData()));
-        context.setVariable("photoType",bill.getBilledCars().get(1).getCar().getPhoto().getType());
 
         return context;
     }

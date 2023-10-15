@@ -64,6 +64,8 @@
 
         <mat-divider></mat-divider>
 
+        <embed *ngIf="fileUrl" [src]="fileUrl" style="width:100%;height: 600px;"/>
+
         <div class="col d-flex justify-content-between mt-2 w-100">
             <button mat-raised-button class="w-40" color="secondary" type="button" [routerLink]="'/'">Abbrechen</button>
             <button mat-raised-button class="w-40" color="primary" [disabled]="!this.createBillForm.valid" type="submit">Weiter</button>

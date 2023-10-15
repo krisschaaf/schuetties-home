@@ -1,11 +1,9 @@
 package krisschaaf.schuettieshome.bill.utils;
 
-import com.itextpdf.html2pdf.HtmlConverter;
 import org.w3c.tidy.Tidy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,16 +22,6 @@ public class Converter {
         tidy.parseDOM(inputStream, outputStream);
 
         return outputStream.toString("UTF-8");
-    }
-
-    //TODO add pdf metadata (https://itextpdf.com/sites/default/files/2018-10/pdfHTML-whitepaper-FINAL.pdf)
-    public static void htmlToPDF(String htmlString, String filepath, PDFInfo pdfInfo) {
-        try {
-            HtmlConverter.convertToPdf(htmlString, new FileOutputStream(filepath));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static String dateToString(Date date) {

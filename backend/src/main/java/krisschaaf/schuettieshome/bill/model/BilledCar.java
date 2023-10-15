@@ -5,7 +5,6 @@ import krisschaaf.schuettieshome.car.model.Car;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import java.util.Calendar;
 import java.util.Date;
 
 @Data
@@ -35,6 +34,6 @@ public class BilledCar {
     }
 
     public String getEndDateAsString() {
-        return Converter.dateToString(this.endDate);
+        return Converter.dateToString(this.getEndDate());
     }
 }

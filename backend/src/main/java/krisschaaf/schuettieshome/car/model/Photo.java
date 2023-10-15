@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Base64;
+
 @Document
 @Data
 public class Photo {
@@ -22,4 +24,8 @@ public class Photo {
     private String type;
 
     private byte[] data;
+
+    public String getEncodedData() {
+        return Base64.getEncoder().encodeToString(this.getData());
+    }
 }

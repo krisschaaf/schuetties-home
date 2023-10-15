@@ -4,11 +4,14 @@ import krisschaaf.schuettieshome.api.Api;
 import krisschaaf.schuettieshome.bill.model.Bill;
 import krisschaaf.schuettieshome.bill.service.BillService;
 import krisschaaf.schuettieshome.bill.service.PDFService;
-import krisschaaf.schuettieshome.bill.utils.StringResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
@@ -16,14 +19,11 @@ import java.util.List;
 public class BillController {
     private BillService billService;
     private PDFService pdfService;
-//    private PDFCarBillService PDFCarBillService;
 
     @Autowired
     public BillController(BillService billService,
-//                          PDFCarBillService PDFCarBillService,
                           PDFService pdfService) {
         this.billService = billService;
-//        this.PDFCarBillService = PDFCarBillService;
         this.pdfService = pdfService;
     }
 
@@ -63,11 +63,15 @@ public class BillController {
     }
 
     @PostMapping("/getPreview")
-    @ResponseStatus(HttpStatus.CREATED)
-    public StringResponse createBillAndReturnPreviewLink(@RequestBody Bill bill) {
-        Bill storedBill = this.billService.createBill(bill);
-        var filePath = this.pdfService.savePDFLocal(storedBill);
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<byte[]> createBillAndReturnPreviewLink(@RequestBody Bill bill) throws UnsupportedEncodingException {
+        var storedBill = this.billService.createBill(bill);
 
-        return new StringResponse(filePath);
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", storedBill.getId() + ".pdf");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(this.pdfService.createPDFByteArray(storedBill));
     }
 }

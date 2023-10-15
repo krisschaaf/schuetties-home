@@ -43,8 +43,13 @@
 
     <body>
         <div class="flex-container">
-<!--            <img class="flex-column-item-basis" th:src="@{${'data:' + photoType + ';base64,' + photoData}}" alt="car-image"-->
-<!--                 height="150" width="150"/>-->
+            <div class="flex-container flex-column-item-basis">
+                <div th:each="billedCar: ${billedCars}">
+                    <img class="flex-column-item-basis" th:src="@{${'data:' + billedCar.getCar().getPhoto().getType() + ';base64,' + billedCar.getCar().getPhoto().getEncodedData()}}" alt="car-image"
+                         height="150" width="150"/>
+                </div>
+            </div>
+
             <div class="flex-column-item flex-container-end">
                 <div class="flex-column-item-end mb-0">
                     <p>Hallenplatz Vermietung</p>

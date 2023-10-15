@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Sanitizer } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BillDTO, BilledCar } from 'src/app/model/bill';
@@ -11,7 +11,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { Utils } from '../../utils/utils';
 import { PhotoUtils } from '../../utils/photoUtils';
 import { Router } from '@angular/router';
-import { StringResponse } from 'src/app/model/utils';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-bill',
@@ -24,6 +24,7 @@ export class CreateBillComponent implements OnInit {
   availableCars: Car[] = [];
   billedCars: BilledCar[] = [];
   todayDate = new Date();
+  fileUrl!: SafeUrl;
 
   constructor(
     private customerService: CustomerService, 
@@ -31,6 +32,7 @@ export class CreateBillComponent implements OnInit {
     private notificationService: NotificationService,
     private billService: BillService,
     private router: Router,
+    private sanitizer: DomSanitizer,
     ) { }
 
   ngOnInit(): void {
@@ -144,12 +146,13 @@ export class CreateBillComponent implements OnInit {
   onCreateBillFormHandler() {
     if(this.billedCars.length > 0) {
       this.billService.createAndGetPreviewBill(this.buildBill()).subscribe({
-        error: (error) => {
-          this.notificationService.notifyError();
-          console.log(error)
+        next: (response: Blob) => {
+          const blob = new Blob([response], { type: 'application/pdf' });
+          this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+          this.notificationService.notify("success");
         },
-        next: (stringResponse: StringResponse) => {
-          this.notificationService.notify(stringResponse.response)
+        error: () => {
+          this.notificationService.notifyError();
         }
       });
     } else {
