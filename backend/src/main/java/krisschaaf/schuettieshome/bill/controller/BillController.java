@@ -64,7 +64,7 @@ public class BillController {
 
     @PostMapping("/getPreview")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<byte[]> createBillAndReturnPreviewLink(@RequestBody Bill bill) throws UnsupportedEncodingException {
+    public ResponseEntity<byte[]> createPreview(@RequestBody Bill bill) throws UnsupportedEncodingException {
         var storedBill = this.billService.createBill(bill);
 
         var headers = new HttpHeaders();
