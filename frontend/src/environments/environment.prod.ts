@@ -1,6 +1,6 @@
 
 const apiVersion = 'v1';
-const apiUri = `http://localhost:8080/api/${apiVersion}/`;
+const apiUri = `https://schuetties-home/api/${apiVersion}/`;
 
 export const environment = {
   production: false,
