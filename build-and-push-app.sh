@@ -9,9 +9,9 @@ echo "Building Frontend\r\n"
 
 cd frontend && npm run build:prod --output-path=dist 
 
-echo "Copying static files to Backend\r\n"
+# echo "Copying static files to Backend\r\n"
 
-cp -r dist/* ../backend/src/main/resources/static/
+# cp -r dist/* ../backend/src/main/resources/static/
 
 echo "Building Backend\r\n"
 
