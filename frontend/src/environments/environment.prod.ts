@@ -1,6 +1,6 @@
 
 const apiVersion = 'v1';
-const apiUri = `https://schuetties-home/api/${apiVersion}/`;
+const apiUri = `https://schuetties-home.de/api/${apiVersion}/`;
 
 export const environment = {
   production: false,
