@@ -41,6 +41,8 @@ import { CarGridComponent } from './components/car/car-grid/car-grid.component';
 import { ShowCarComponent } from './components/car/show-car/show-car.component';
 import { DeleteCarDialogComponent } from './components/car/show-car/delete-car-dialog/delete-car-dialog.component';
 import { CreateBillComponent } from './components/bill/create-bill/create-bill.component';
+import { ErrorInterceptor } from './interceptors/http.interceptor';
+import { ContactAdminComponent } from './components/contact-admin/contact-admin.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { CreateBillComponent } from './components/bill/create-bill/create-bill.c
     CarGridComponent,
     ShowCarComponent,
     DeleteCarDialogComponent,
-    CreateBillComponent
+    CreateBillComponent,
+    ContactAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +100,11 @@ import { CreateBillComponent } from './components/bill/create-bill/create-bill.c
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,
       multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
     },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
