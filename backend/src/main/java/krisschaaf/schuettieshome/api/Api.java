@@ -12,5 +12,5 @@ public interface Api {
     String PERMISSION_READ_CARS = "SCOPE_read:cars";
     String PERMISSION_WRITE_CARS = "SCOPE_write:cars";
     String PERMISSION_READ_BILLS = "SCOPE_read:bills";
-    String PERMISSION_WRITE_BILLS = "SCOPE_write:customers";
+    String PERMISSION_WRITE_BILLS = "SCOPE_write:bills";
 }
