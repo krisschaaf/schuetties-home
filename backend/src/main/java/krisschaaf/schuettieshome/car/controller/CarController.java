@@ -55,6 +55,10 @@ public class CarController {
         this.carService.deleteCarById(id);
     }
 
+    @DeleteMapping("/ofCustomer/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCarsByCustomerId(@PathVariable String id) { this.carService.deleteCarsByCustomerId(id); };
+
     @DeleteMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteAllCars() {

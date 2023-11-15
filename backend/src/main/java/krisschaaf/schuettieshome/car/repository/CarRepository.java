@@ -11,4 +11,6 @@ public interface CarRepository extends MongoRepository<Car, String> {
     public List<Car> findCarsByCustomer(Customer customer);
 
     public List<Car> getCarsByCustomer_Id(String customer_id);
+
+    public void deleteAllByCustomer_Id(String customer_id);
 }

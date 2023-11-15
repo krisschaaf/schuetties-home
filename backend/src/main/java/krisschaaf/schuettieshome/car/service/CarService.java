@@ -41,6 +41,8 @@ public class CarService {
         this.carRepository.deleteById(id);
     }
 
+    public void deleteCarsByCustomerId(String id) { this.carRepository.deleteAllByCustomer_Id(id); }
+
     public List<Car> findCarsByCustomerId(String id) {
         return this.carRepository.getCarsByCustomer_Id(id);
     }

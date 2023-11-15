@@ -40,6 +40,10 @@ export class CarService {
     return this.http.delete<any>(`${this.carUrl}/${id}`);
   }
 
+  deleteAllCarsByCustomerId(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.carUrl}/ofCustomer/${id}`);
+  }
+
   getCarsByCustomerId(id: string): Observable<Car[]> {
     return this.http.get<Car[]>(`${this.carUrl}/ofCustomer/${id}`)
   }
