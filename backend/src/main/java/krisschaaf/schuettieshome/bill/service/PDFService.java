@@ -11,7 +11,9 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class PDFService {
@@ -36,12 +38,20 @@ public class PDFService {
         return out.toByteArray();
     }
 
+    private static String generateImageData(BilledCar billedCar) {
+        String type = billedCar.getCar().getPhoto().getType();
+        String encodedData = billedCar.getCar().getPhoto().getEncodedData();
+        return "data:" + type + ";base64," + encodedData;
+    }
+
     private static Context createContext(Bill bill) {
         var context = new Context();
         long fullPayment = 0;
+        List<String> imageData = new ArrayList<>();
 
         for (BilledCar billedCar: bill.getBilledCars()) {
             fullPayment += billedCar.getPricePerCar(bill.getPricePerMonthAsLong());
+            imageData.add(generateImageData(billedCar));
         }
 
         context.setVariable("customer", bill.getCustomer());
@@ -50,6 +60,7 @@ public class PDFService {
         context.setVariable("fullPayment", fullPayment);
         context.setVariable("billedCars", bill.getBilledCars());
         context.setVariable("todayDate", Converter.dateToString(new Date()));
+        context.setVariable("imageData", imageData);
 
         return context;
     }

@@ -44,8 +44,8 @@
     <body>
         <div class="flex-container">
             <div class="flex-container flex-column-item-basis">
-                <div th:each="billedCar: ${billedCars}">
-                    <img class="flex-column-item-basis" th:src="@{${'data:' + billedCar.getCar().getPhoto().getType() + ';base64,' + billedCar.getCar().getPhoto().getEncodedData()}}" alt="car-image"
+                <div th:each="imageDate: ${imageData}">
+                    <img class="flex-column-item-basis" th:src="${imageDate}" alt="car-image"
                          height="150" width="150"/>
                 </div>
             </div>
