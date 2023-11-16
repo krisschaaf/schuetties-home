@@ -76,7 +76,8 @@
                 <embed class="mt-4" [src]="fileUrl" style="width:100%;height: 600px;"/>
 
                 <div class="col d-flex justify-content-end mt-2 w-100">
-                    <button mat-raised-button class="w-40" color="primary" type="button">Speichern</button>
+                    <button *ngIf="!pdfSaved" mat-raised-button class="w-40" color="primary" (click)="saveBillPDF()" type="button">Speichern</button>
+                    <button *ngIf="pdfSaved" mat-raised-button class="w-40" color="secondary" routerLink="/" type="button">Zurück</button>
                 </div>
             </div>
         </div>

@@ -53,6 +53,9 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher(HttpMethod.POST, Api.BILL_PATH)).hasAuthority(Api.PERMISSION_WRITE_BILLS)
                         .requestMatchers(antMatcher(HttpMethod.PUT, Api.BILL_PATH)).hasAuthority(Api.PERMISSION_WRITE_BILLS)
                         .requestMatchers(antMatcher(HttpMethod.DELETE, Api.BILL_PATH)).hasAuthority(Api.PERMISSION_WRITE_BILLS)
+
+                        .requestMatchers(antMatcher(HttpMethod.POST, Api.BILL_PDF_PATH)).hasAuthority(Api.PERMISSION_WRITE_BILLS)
+
                         .anyRequest().authenticated())
                 .cors((cors) ->
                         cors.configurationSource(corsConfigurationSource()))

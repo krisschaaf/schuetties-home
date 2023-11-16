@@ -11,8 +11,12 @@ import java.io.IOException;
 @Service
 public class PhotoService {
 
-    @Autowired
     private PhotoRepository photoRepository;
+
+    @Autowired
+    public PhotoService(PhotoRepository photoRepository) {
+        this.photoRepository = photoRepository;
+    }
 
     public Photo addPhoto(MultipartFile file) throws IOException {
         Photo photo = new Photo(file.getOriginalFilename(), file.getContentType(), file.getBytes());
@@ -20,7 +24,7 @@ public class PhotoService {
     }
 
     public Photo getPhoto(String id) {
-        return photoRepository.findById(id).orElseThrow(() -> new RuntimeException("Photo could not be found"));
+        return photoRepository.findById(id).orElseThrow(() -> new RuntimeException("Photo could not be found."));
     }
 
     //TODO use

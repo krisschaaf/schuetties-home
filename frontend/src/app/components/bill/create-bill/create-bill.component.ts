@@ -1,4 +1,4 @@
-import { Component, OnInit, Sanitizer } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BillDTO, BilledCar } from 'src/app/model/bill';
@@ -10,7 +10,6 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Utils } from '../../utils/utils';
 import { PhotoUtils } from '../../utils/photoUtils';
-import { Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
@@ -24,15 +23,16 @@ export class CreateBillComponent implements OnInit {
   availableCars: Car[] = [];
   billedCars: BilledCar[] = [];
   todayDate = new Date();
+  file!: File;
   fileUrl!: SafeUrl;
   loading = false;
+  pdfSaved = false;
 
   constructor(
     private customerService: CustomerService, 
     private carService: CarService, 
     private notificationService: NotificationService,
     private billService: BillService,
-    private router: Router,
     private sanitizer: DomSanitizer,
     ) { }
 
@@ -151,8 +151,10 @@ export class CreateBillComponent implements OnInit {
         next: (response: Blob) => {
           const blob = new Blob([response], { type: 'application/pdf' });
           this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+          this.file = new File([blob], 'Rechnung');
           this.loading = false;
-          this.notificationService.notify("Die Rechnung wurde erfolgreich erstellt.");
+          this.pdfSaved = false;
+          this.notificationService.notify('Die Rechnung wurde erfolgreich erstellt.');
         },
         error: () => {
           this.loading = false;
@@ -162,5 +164,18 @@ export class CreateBillComponent implements OnInit {
     } else {
       this.notificationService.notify('Es muss mindestens ein Auto angegeben werden.')
     }
+  }
+
+  saveBillPDF() {
+    this.billService.createBillPDF(this.file).subscribe({
+      next: () => {
+        this.notificationService.notify('Die Rechnung wurde erfolgreich gespeichert.')
+        this.pdfSaved = true;
+      },
+      error: () => {
+        this.notificationService.notifyError();
+        this.pdfSaved = false;
+      }
+    })
   }
 }

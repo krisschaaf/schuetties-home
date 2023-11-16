@@ -18,3 +18,9 @@ export interface BilledCar {
     car: Car;
     endDate: Date;
 }
+
+export interface BillPDF {
+    id: string;
+    name: string;
+    data: any;
+}

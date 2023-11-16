@@ -6,6 +6,7 @@ public interface Api {
     String CAR_PATH = VERSION + "/cars/car";
     String PHOTO_PATH = VERSION + "/cars/photo";
     String BILL_PATH = VERSION + "/bills/bill";
+    String BILL_PDF_PATH = VERSION + "/bills/pdf";
 
     String PERMISSION_READ_CUSTOMERS = "SCOPE_read:customers";
     String PERMISSION_WRITE_CUSTOMERS = "SCOPE_write:customers";
