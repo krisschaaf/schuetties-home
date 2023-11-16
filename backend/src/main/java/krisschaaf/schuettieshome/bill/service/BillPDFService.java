@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class BillPDFService {
@@ -28,7 +29,10 @@ public class BillPDFService {
     }
 
     public BillPDF getPdf(String id) {
-        return billPDFRepository.findById(id).orElseThrow(() -> new RuntimeException("BillPDF not found."));
+        return this.billPDFRepository.findById(id).orElseThrow(() -> new RuntimeException("BillPDF not found."));
     }
 
+    public List<BillPDF> getAllPdfs() {
+        return this.billPDFRepository.findAll();
+    }
 }

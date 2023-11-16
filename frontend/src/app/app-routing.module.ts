@@ -12,6 +12,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { CreateBillComponent } from './components/bill/create-bill/create-bill.component';
 import { ContactAdminComponent } from './components/contact-admin/contact-admin.component';
+import { BillGridComponent } from './components/bill/bill-grid/bill-grid.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'cars', component: CarGridComponent, canActivate: [AuthGuard] },
   { path: 'car', component: ShowCarComponent, canActivate: [AuthGuard] },
   { path: 'createBill', component: CreateBillComponent, canActivate: [AuthGuard] },
+  { path: 'bills', component: BillGridComponent, canActivate: [AuthGuard] },
   { path: 'contact-admin', component: ContactAdminComponent },
   { path: 'impressum', component: ImpressumComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },

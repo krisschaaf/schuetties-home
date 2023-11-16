@@ -44,7 +44,13 @@ export class DashboardComponent implements OnInit{
       basePath: '/createBill',
       cssClass: 'dashboard__withAuth--tile tiles--bill',
       title: 'Rechnungen',
-      subtitle: 'Neues Rechnung erstellen',
+      subtitle: 'Neue Rechnung erstellen',
+    },
+    {
+      basePath: '/bills',
+      cssClass: 'dashboard__withAuth--tile tiles--bill',
+      title: 'Rechnungen',
+      subtitle: 'Rechnungen anzeigen',
     },
   ]
 

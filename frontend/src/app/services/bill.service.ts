@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class BillService {
   private baseUrl = environment.backendBasePath + 'bills/'; 
   private billUrl = this.baseUrl + 'bill'; 
-  private billPhotoUrl = this.baseUrl + 'pdf'; 
+  private billPDFUrl = this.baseUrl + 'pdf'; 
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +25,10 @@ export class BillService {
   createBillPDF(file: Blob): Observable<BillPDF> {
     const data: FormData = new FormData();
     data.append('pdfFile', file);
-    return this.http.post<BillPDF>(this.billPhotoUrl, data);
+    return this.http.post<BillPDF>(this.billPDFUrl, data);
+  }
+
+  getBillPDFs(): Observable<BillPDF[]> {
+    return this.http.get<BillPDF[]>(this.billPDFUrl);
   }
 }

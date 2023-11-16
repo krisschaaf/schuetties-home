@@ -44,6 +44,7 @@ import { DeleteCarDialogComponent } from './components/car/show-car/delete-car-d
 import { CreateBillComponent } from './components/bill/create-bill/create-bill.component';
 import { ErrorInterceptor } from './interceptors/http.interceptor';
 import { ContactAdminComponent } from './components/contact-admin/contact-admin.component';
+import { BillGridComponent } from './components/bill/bill-grid/bill-grid.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { ContactAdminComponent } from './components/contact-admin/contact-admin.
     DeleteCarDialogComponent,
     CreateBillComponent,
     ContactAdminComponent,
+    BillGridComponent,
   ],
   imports: [
     BrowserModule,

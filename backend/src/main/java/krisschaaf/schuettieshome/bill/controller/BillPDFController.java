@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(Api.BILL_PDF_PATH)
 public class BillPDFController {
@@ -31,4 +33,7 @@ public class BillPDFController {
         return this.billPDFService.getPdf(id);
     }
 
+    @GetMapping()
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public List<BillPDF> getAllBillPDFs() { return this.billPDFService.getAllPdfs(); }
 }
