@@ -4,6 +4,8 @@ import { CellClickedEvent, ColDef } from 'ag-grid-community';
 import { BillPDF } from 'src/app/model/bill';
 import { BillService } from 'src/app/services/bill.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { DownloadButtonCellRenderer } from './button-renderer/download-button-cell-renderer/download-button-cell-renderer.component';
+import { PreviewButtonCellRendererComponent } from './button-renderer/preview-button-cell-renderer/preview-button-cell-renderer.component';
 
 @Component({
   selector: 'app-bill-grid',
@@ -22,6 +24,8 @@ export class BillGridComponent {
 
   colDefs: ColDef[] = [
     { field: 'name', headerName: 'Name' },
+    { field: 'name', headerName: 'Preview', cellRenderer: PreviewButtonCellRendererComponent },
+    { field: 'name', headerName: 'Download', cellRenderer: DownloadButtonCellRenderer },
   ];
 
   public defaultColDef: ColDef = {
@@ -38,9 +42,5 @@ export class BillGridComponent {
         this.notificationService.notify('Etwas ist schiefgelaufen. Bitte versuch es noch einmal.');
       }
     })
-  }
-
-  onCellClicked($event: CellClickedEvent<any,any>) {
-    throw new Error('Method not implemented.');
   }
 }

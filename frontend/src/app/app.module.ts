@@ -45,6 +45,8 @@ import { CreateBillComponent } from './components/bill/create-bill/create-bill.c
 import { ErrorInterceptor } from './interceptors/http.interceptor';
 import { ContactAdminComponent } from './components/contact-admin/contact-admin.component';
 import { BillGridComponent } from './components/bill/bill-grid/bill-grid.component';
+import { DownloadButtonCellRenderer } from './components/bill/bill-grid/button-renderer/download-button-cell-renderer/download-button-cell-renderer.component';
+import { PreviewButtonCellRendererComponent } from './components/bill/bill-grid/button-renderer/preview-button-cell-renderer/preview-button-cell-renderer.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { BillGridComponent } from './components/bill/bill-grid/bill-grid.compone
     CreateBillComponent,
     ContactAdminComponent,
     BillGridComponent,
+    DownloadButtonCellRenderer,
+    PreviewButtonCellRendererComponent
   ],
   imports: [
     BrowserModule,
