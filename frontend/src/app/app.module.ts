@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -61,7 +62,7 @@ import { ContactAdminComponent } from './components/contact-admin/contact-admin.
     ShowCarComponent,
     DeleteCarDialogComponent,
     CreateBillComponent,
-    ContactAdminComponent
+    ContactAdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +86,7 @@ import { ContactAdminComponent } from './components/contact-admin/contact-admin.
     MatSelectModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatProgressBarModule,
     AgGridModule,
     AuthModule.forRoot({
       ...env.auth,

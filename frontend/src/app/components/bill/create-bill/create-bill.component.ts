@@ -25,6 +25,7 @@ export class CreateBillComponent implements OnInit {
   billedCars: BilledCar[] = [];
   todayDate = new Date();
   fileUrl!: SafeUrl;
+  loading = false;
 
   constructor(
     private customerService: CustomerService, 
@@ -145,13 +146,16 @@ export class CreateBillComponent implements OnInit {
 
   onCreateBillFormHandler() {
     if(this.billedCars.length > 0) {
+      this.loading = true;
       this.billService.createAndGetPreviewBill(this.buildBill()).subscribe({
         next: (response: Blob) => {
           const blob = new Blob([response], { type: 'application/pdf' });
           this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
-          this.notificationService.notify("success");
+          this.loading = false;
+          this.notificationService.notify("Die Rechnung wurde erfolgreich erstellt.");
         },
         error: () => {
+          this.loading = false;
           this.notificationService.notifyError();
         }
       });
