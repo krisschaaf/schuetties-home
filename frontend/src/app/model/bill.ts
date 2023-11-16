@@ -19,8 +19,13 @@ export interface BilledCar {
     endDate: Date;
 }
 
+export interface BillPDFDTO {
+    file: File;
+    customer: Customer;
+}
+
 export interface BillPDF {
-    id: string;
+    id: string
     name: string;
     data: any;
 }

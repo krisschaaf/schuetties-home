@@ -20,7 +20,7 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(String id) {
-        return this.customerRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        return this.customerRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer not found."));
     }
 
     public List<Customer> getAllCustomers() {

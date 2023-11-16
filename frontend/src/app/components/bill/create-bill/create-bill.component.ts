@@ -20,6 +20,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class CreateBillComponent implements OnInit {
   createBillForm!: FormGroup;
   customers!: Customer[];
+  currentPDFCustomer!: Customer
   availableCars: Car[] = [];
   billedCars: BilledCar[] = [];
   todayDate = new Date();
@@ -147,13 +148,15 @@ export class CreateBillComponent implements OnInit {
   onCreateBillFormHandler() {
     if(this.billedCars.length > 0) {
       this.loading = true;
-      this.billService.createAndGetPreviewBill(this.buildBill()).subscribe({
+      const bill = this.buildBill();
+      this.billService.createAndGetPreviewBill(bill).subscribe({
         next: (response: Blob) => {
           const blob = new Blob([response], { type: 'application/pdf' });
           this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
           this.file = new File([blob], 'Rechnung');
           this.loading = false;
           this.pdfSaved = false;
+          this.currentPDFCustomer = bill.customer;
           this.notificationService.notify('Die Rechnung wurde erfolgreich erstellt.');
         },
         error: () => {
@@ -167,7 +170,11 @@ export class CreateBillComponent implements OnInit {
   }
 
   saveBillPDF() {
-    this.billService.createBillPDF(this.file).subscribe({
+    console.log(this.file.name);
+    this.billService.createBillPDF({
+      file: this.file,
+      customer: this.currentPDFCustomer,
+    }).subscribe({
       next: () => {
         this.notificationService.notify('Die Rechnung wurde erfolgreich gespeichert.')
         this.pdfSaved = true;
