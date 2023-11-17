@@ -30,7 +30,8 @@ export class PreviewButtonCellRendererComponent implements ICellRendererAngularC
       this.dialog.open(PreviewBillDialogComponent, {
         data: {
           id: this.cellValue
-        }
+        },
+        width: '80%'
       });
     }
   }

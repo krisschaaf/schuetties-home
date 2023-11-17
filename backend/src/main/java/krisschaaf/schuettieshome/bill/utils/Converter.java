@@ -5,8 +5,9 @@ import org.w3c.tidy.Tidy;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.Calendar;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Converter {
 
@@ -25,10 +26,9 @@ public class Converter {
     }
 
     public static String dateToString(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        var month = String.valueOf(calendar.get(Calendar.MONTH) + 1); //month method is indexed → january returns 0
-        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + '.' + month + '.' + calendar.get(Calendar.YEAR);
+        Locale locale = new Locale("de", "DE");
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
 
+        return dateFormat.format(date);
     }
 }
