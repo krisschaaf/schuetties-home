@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ICellRendererParams } from "ag-grid-community";
+import { BillService } from "src/app/services/bill.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
     selector: 'download-button-cell-renderer',
@@ -8,18 +10,43 @@ import { ICellRendererParams } from "ag-grid-community";
     styleUrls: ['./download-button-cell-renderer.component.scss']
 })
 export class DownloadButtonCellRenderer implements ICellRendererAngularComp {
-    public cellValue!: string;
+    private cellValues!: any
+
+    constructor(
+        private billService: BillService,
+        private notificationService: NotificationService,
+    ) {}
 
     agInit(params: ICellRendererParams): void {
-        this.cellValue = params.value;
+        this.cellValues = params.data;
     }
 
     refresh(params: ICellRendererParams): boolean {
-        this.cellValue = params.value;
+        this.cellValues = params.data;
         return true;
     }
 
     btnClickedHandler() {
-        throw new Error('To be implemented...');
+        this.billService.getPdfDataById(this.cellValues.id).subscribe({
+            next: (bytes) => {
+              const blob = new Blob([bytes], { type: 'application/pdf' });
+              
+              const url = window.URL.createObjectURL(blob);
+              const link = document.createElement('a');
+      
+              link.setAttribute('target', '_blank');
+              link.setAttribute('href', url);
+              link.setAttribute('download', `${this.cellValues.name}.pdf`);
+      
+              document.body.appendChild(link);
+      
+              link.click();
+              link.remove();
+
+            },
+            error: () => {
+              this.notificationService.notifyError();
+            }
+          })        
     }
 }

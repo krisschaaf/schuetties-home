@@ -66,12 +66,10 @@ public class BillController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<byte[]> createPreview(@RequestBody Bill bill) throws UnsupportedEncodingException {
         var storedBill = this.billService.createBill(bill);
-
-        var headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("attachment", storedBill.getId() + ".pdf");
-        return ResponseEntity.ok()
-                .headers(headers)
+        return ResponseEntity
+                .accepted()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + storedBill.getId())
+                .contentType(MediaType.APPLICATION_PDF)
                 .body(this.pdfService.createPDFByteArray(storedBill));
     }
 }

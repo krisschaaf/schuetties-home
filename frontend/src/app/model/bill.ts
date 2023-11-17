@@ -25,7 +25,17 @@ export interface BillPDFDTO {
 }
 
 export interface BillPDF {
-    id: string
+    id: string;
     name: string;
-    data: any;
+    creationDate: Date;
+    data: Blob;
+    customer: Customer,
+}
+
+export interface BillPDFNoData {
+    id: string;
+    name: string;
+    creationDate: Date;
+    customerFirstName: string;
+    customerLastName: string,
 }

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BillService } from 'src/app/services/bill.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
-export interface BillDialogData {
+interface BillDialogData {
   billId: '';
 }
 

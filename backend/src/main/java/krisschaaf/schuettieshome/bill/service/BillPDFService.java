@@ -1,6 +1,7 @@
 package krisschaaf.schuettieshome.bill.service;
 
 import krisschaaf.schuettieshome.bill.model.BillPDF;
+import krisschaaf.schuettieshome.bill.model.BillPDFNoDataDTO;
 import krisschaaf.schuettieshome.bill.repository.BillPDFRepository;
 import krisschaaf.schuettieshome.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BillPDFService {
@@ -36,8 +38,16 @@ public class BillPDFService {
         return this.billPDFRepository.findById(id).orElseThrow(() -> new RuntimeException("BillPDF not found."));
     }
 
-    public List<BillPDF> getAllPdfs() {
-        return this.billPDFRepository.findAll();
+    public List<BillPDFNoDataDTO> getAllPdfs() {
+        return this.billPDFRepository.findAll().stream()
+                .map(
+                    billPDF -> new BillPDFNoDataDTO(
+                            billPDF.getId(),
+                            billPDF.getName(),
+                            billPDF.getCreationDate(),
+                            billPDF.getCustomer().getFirstname(),
+                            billPDF.getCustomer().getLastname()))
+                .collect(Collectors.toList());
     }
 
     public void deleteBillPDFById(String id) {

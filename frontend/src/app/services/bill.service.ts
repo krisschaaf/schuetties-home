@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { BillDTO, BillPDF, BillPDFDTO } from '../model/bill';
+import { BillDTO, BillPDF, BillPDFDTO, BillPDFNoData } from '../model/bill';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -32,9 +32,13 @@ export class BillService {
     return this.http.post<BillPDF>(this.billPDFUrl, data);
   }
 
-  getBillPDFs(): Observable<BillPDF[]> {
-    return this.http.get<BillPDF[]>(this.billPDFUrl);
+  getBillPDFsNoData(): Observable<BillPDFNoData[]> {
+    return this.http.get<BillPDFNoData[]>(`${this.billPDFUrl}/noData`);
   }
+
+  getPdfDataById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.billPDFUrl}/data/${id}`, { responseType: 'arraybuffer' as 'json' });
+}
 
   deleteBillPDFById(id: string): Observable<any> {
     return this.http.delete<any>(`${this.billPDFUrl}/${id}`);

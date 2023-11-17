@@ -170,7 +170,6 @@ export class CreateBillComponent implements OnInit {
   }
 
   saveBillPDF() {
-    console.log(this.file.name);
     this.billService.createBillPDF({
       file: this.file,
       customer: this.currentPDFCustomer,

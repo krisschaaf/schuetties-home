@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
+import { PreviewBillDialogComponent } from './preview-bill-dialog/preview-bill-dialog.component';
 
 @Component({
   selector: 'app-preview-button-cell-renderer',
@@ -9,6 +11,8 @@ import { ICellRendererParams } from 'ag-grid-community';
 })
 export class PreviewButtonCellRendererComponent implements ICellRendererAngularComp {
   public cellValue!: string;
+
+  constructor(private dialog: MatDialog) {}
 
   agInit(params: ICellRendererParams): void {
     this.cellValue = params.value;
@@ -20,6 +24,14 @@ export class PreviewButtonCellRendererComponent implements ICellRendererAngularC
   }
 
   btnClickedHandler() {
-    throw new Error('To be implemented...');
+    if(!this.cellValue) {
+      console.log('No ID for this bill found.');
+    } else {
+      this.dialog.open(PreviewBillDialogComponent, {
+        data: {
+          id: this.cellValue
+        }
+      });
+    }
   }
 }
