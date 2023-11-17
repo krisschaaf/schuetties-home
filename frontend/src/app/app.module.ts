@@ -50,6 +50,7 @@ import { PreviewButtonCellRendererComponent } from './components/bill/bill-grid/
 import { DeleteButtonCellRendererComponent } from './components/bill/bill-grid/button-renderer/delete-button-cell-renderer/delete-button-cell-renderer.component';
 import { DeleteBillDialogComponent } from './components/bill/bill-grid/button-renderer/delete-button-cell-renderer/delete-bill-dialog/delete-bill-dialog.component';
 import { PreviewBillDialogComponent } from './components/bill/bill-grid/button-renderer/preview-button-cell-renderer/preview-bill-dialog/preview-bill-dialog.component';
+import { GridDateCellRendererComponent } from './components/utils/grid-date-cell-renderer/grid-date-cell-renderer.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { PreviewBillDialogComponent } from './components/bill/bill-grid/button-r
     PreviewButtonCellRendererComponent,
     DeleteButtonCellRendererComponent,
     DeleteBillDialogComponent,
-    PreviewBillDialogComponent
+    PreviewBillDialogComponent,
+    GridDateCellRendererComponent
   ],
   imports: [
     BrowserModule,

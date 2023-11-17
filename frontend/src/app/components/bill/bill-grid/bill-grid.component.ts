@@ -7,6 +7,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { DownloadButtonCellRenderer } from './button-renderer/download-button-cell-renderer/download-button-cell-renderer.component';
 import { PreviewButtonCellRendererComponent } from './button-renderer/preview-button-cell-renderer/preview-button-cell-renderer.component';
 import { DeleteButtonCellRendererComponent } from './button-renderer/delete-button-cell-renderer/delete-button-cell-renderer.component';
+import { GridDateCellRendererComponent } from '../../utils/grid-date-cell-renderer/grid-date-cell-renderer.component';
 
 @Component({
   selector: 'app-bill-grid',
@@ -24,10 +25,10 @@ export class BillGridComponent {
   public rowData!: BillPDFNoData[];
 
   colDefs: ColDef[] = [
-    { field: 'name', headerName: 'Dateiname', resizable: true },
-    { field: 'customerFirstName', headerName: 'Vorname', width: 150 },
-    { field: 'customerLastName', headerName: 'Nachname', width: 150 },
-    { field: 'creationDate', headerName: 'Erstellt am' },
+    { field: 'name', headerName: 'Dateiname' },
+    { field: 'customerFirstName', headerName: 'Vorname', width: 140 },
+    { field: 'customerLastName', headerName: 'Nachname', width: 140 },
+    { field: 'creationDate', headerName: 'Erstellt am', cellRenderer: GridDateCellRendererComponent, width: 130 },
     { field: 'id', headerName: 'Vorschau', cellRenderer: PreviewButtonCellRendererComponent, width: 140 },
     { headerName: 'Herunteladen', cellRenderer: DownloadButtonCellRenderer, width: 175 },
     { field: 'id', headerName: 'Löschen', cellRenderer: DeleteButtonCellRendererComponent, width: 135 },
@@ -36,6 +37,7 @@ export class BillGridComponent {
   public defaultColDef: ColDef = {
     sortable: true,
     filter: true,
+    resizable: true,
   };
 
   ngOnInit() {

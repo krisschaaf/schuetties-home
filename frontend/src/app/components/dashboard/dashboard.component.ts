@@ -41,16 +41,16 @@ export class DashboardComponent implements OnInit{
       subtitle: 'Neues Auto hinzufügen',
     },
     {
+      basePath: '/bills',
+      cssClass: 'dashboard__withAuth--tile tiles--bill',
+      title: 'Rechnungen',
+      subtitle: 'Rechnungen verwalten',
+    },
+    {
       basePath: '/createBill',
       cssClass: 'dashboard__withAuth--tile tiles--bill',
       title: 'Rechnungen',
       subtitle: 'Neue Rechnung erstellen',
-    },
-    {
-      basePath: '/bills',
-      cssClass: 'dashboard__withAuth--tile tiles--bill',
-      title: 'Rechnungen',
-      subtitle: 'Rechnungen anzeigen',
     },
   ]
 

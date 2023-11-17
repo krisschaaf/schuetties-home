@@ -74,13 +74,13 @@
             <p class="m-0">Rechnungen</p>
           </button>
           <mat-menu #billMenu="matMenu">
+            <button mat-menu-item routerLink="/bills">
+              <mat-icon>add</mat-icon>
+              <span>Rechnungen verwalten</span>
+            </button>
             <button mat-menu-item routerLink="/createBill">
               <mat-icon>add</mat-icon>
               <span>Rechnung erstellen</span>
-            </button>
-            <button mat-menu-item routerLink="/bills">
-              <mat-icon>add</mat-icon>
-              <span>Rechnungen anzeigen</span>
             </button>
           </mat-menu>
         </li>

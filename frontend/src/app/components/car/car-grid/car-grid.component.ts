@@ -5,6 +5,7 @@ import { CellClickedEvent, ColDef } from 'ag-grid-community';
 import { Car } from 'src/app/model/car';
 import { CarService } from 'src/app/services/car.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { GridDateCellRendererComponent } from '../../utils/grid-date-cell-renderer/grid-date-cell-renderer.component';
 
 @Component({
   selector: 'app-car-grid',
@@ -19,14 +20,14 @@ export class CarGridComponent {
   public rowData!: Car[];
 
   colDefs: ColDef[] = [
-    { field: 'customer.salutation', headerName: 'Anrede' },
-    { field: 'customer.lastname', headerName: 'Nachname' },
-    { field: 'customer.firstname', headerName: 'Vorname' },
-    { field: 'make', headerName: 'Marke' },
-    { field: 'model', headerName: 'Modell' },
-    { field: 'year', headerName: 'Baujahr' },
-    { field: 'license', headerName: 'Kennzeichen' },
-    { field: 'date', headerName: 'Eingelagert am' },
+    { field: 'customer.salutation', headerName: 'Anrede', width: 100 },
+    { field: 'customer.lastname', headerName: 'Nachname', width: 140 },
+    { field: 'customer.firstname', headerName: 'Vorname', width: 140 },
+    { field: 'make', headerName: 'Marke', width: 140 },
+    { field: 'model', headerName: 'Modell', width: 120 },
+    { field: 'year', headerName: 'Bj.', width: 100 },
+    { field: 'license', headerName: 'Kennzeichen', width: 140 },
+    { field: 'date', headerName: 'Eingelagert am', cellRenderer: GridDateCellRendererComponent, width: 160 },
   ];
 
   public defaultColDef: ColDef = {

@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +26,13 @@ public class BillPDFService {
     }
 
     public void savePdf(MultipartFile file, Customer customer) {
+        Locale locale = new Locale("de", "DE");
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
+        Date creationDate = new Date();
+        String date = dateFormat.format(creationDate);
+
         try {
-            Date creationDate = new Date();
-            String billName = customer.getLastname() + "-" + customer.getFirstname() + "_" + creationDate;
+            String billName = customer.getLastname() + "-" + customer.getFirstname() + "_" + date;
             BillPDF billPDF = new BillPDF(billName, creationDate, file.getBytes(), customer);
             this.billPDFRepository.save(billPDF);
         } catch (IOException e) {

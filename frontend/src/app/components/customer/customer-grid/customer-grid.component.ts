@@ -19,18 +19,18 @@ export class CustomerGridComponent {
   public rowData!: Customer[];
 
   colDefs: ColDef[] = [
-    { field: 'salutation', headerName: 'Anrede' },
-    { field: 'lastname', headerName: 'Nachname' },
-    { field: 'firstname', headerName: 'Vorname' },
+    { field: 'salutation', headerName: 'Anrede', width: 100 },
+    { field: 'lastname', headerName: 'Nachname', width: 140 },
+    { field: 'firstname', headerName: 'Vorname', width: 140 },
     { field: 'email', headerName: 'E-Mail' },
-    { field: 'telephonePrivate', headerName: 'Telefon Privat' },
-    { field: 'telephoneBusiness', headerName: 'Telefon Gesch.' },
-    { field: 'mobile', headerName: 'Handy' },
-    { field: 'fax', headerName: 'Fax' },
+    { field: 'telephonePrivate', headerName: 'Telefon Privat', width: 150 },
+    { field: 'telephoneBusiness', headerName: 'Telefon Gesch.', width: 150 },
+    { field: 'mobile', headerName: 'Handy', width: 160 },
+    { field: 'fax', headerName: 'Fax', width: 160 },
     { field: 'street', headerName: 'Straße' },
-    { field: 'housingNumber', headerName: 'Hausnummer' },
-    { field: 'postalCode', headerName: 'PLZ' },
-    { field: 'city', headerName: 'Stadt' },
+    { field: 'housingNumber', headerName: 'Nr.', width: 80 },
+    { field: 'postalCode', headerName: 'PLZ', width: 100 },
+    { field: 'city', headerName: 'Stadt', width: 120 },
     { field: 'bankNumber', headerName: 'Banknummer' },
     { field: 'additionalInformation', headerName: 'Sonstiges' },
   ];
@@ -38,6 +38,7 @@ export class CustomerGridComponent {
   public defaultColDef: ColDef = {
     sortable: true,
     filter: true,
+    resizable: true,
   };
 
   ngOnInit() {
