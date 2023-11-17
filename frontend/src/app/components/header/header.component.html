@@ -42,13 +42,13 @@
             <p class="m-0">Kunden</p>
           </button>
           <mat-menu #customerMenu="matMenu">
-            <button mat-menu-item routerLink="/customers">
-              <mat-icon>add</mat-icon>
-              <span>Kunden verwalten</span>
-            </button>
             <button mat-menu-item routerLink="/addCustomer">
               <mat-icon>add</mat-icon>
               <span>Neuen Kunden hinzufügen</span>
+            </button>
+            <button mat-menu-item routerLink="/customers">
+              <mat-icon>add</mat-icon>
+              <span>Kunden verwalten</span>
             </button>
           </mat-menu>
         </li>
@@ -58,13 +58,13 @@
             <p class="m-0">Autos</p>
           </button>
           <mat-menu #carMenu="matMenu">
-            <button mat-menu-item routerLink="/cars">
-              <mat-icon>add</mat-icon>
-              <span>Autos verwalten</span>
-            </button>
             <button mat-menu-item routerLink="/addCar">
               <mat-icon>add</mat-icon>
               <span>Neues Auto hinzufügen</span>
+            </button>
+            <button mat-menu-item routerLink="/cars">
+              <mat-icon>add</mat-icon>
+              <span>Autos verwalten</span>
             </button>
           </mat-menu>
         </li>
@@ -74,13 +74,13 @@
             <p class="m-0">Rechnungen</p>
           </button>
           <mat-menu #billMenu="matMenu">
+            <button mat-menu-item routerLink="/createBill">
+              <mat-icon>add</mat-icon>
+              <span>Neue Rechnung erstellen</span>
+            </button>
             <button mat-menu-item routerLink="/bills">
               <mat-icon>add</mat-icon>
               <span>Rechnungen verwalten</span>
-            </button>
-            <button mat-menu-item routerLink="/createBill">
-              <mat-icon>add</mat-icon>
-              <span>Rechnung erstellen</span>
             </button>
           </mat-menu>
         </li>

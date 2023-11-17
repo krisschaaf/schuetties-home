@@ -17,22 +17,16 @@ export class DashboardComponent implements OnInit{
   isLoggedIn!: boolean;
   menuTiles: MenuTile[] = [
     {
-      basePath: '/customers',
-      cssClass: 'dashboard__withAuth--tile tiles--customer',
-      title: 'Kunde',
-      subtitle: 'Kunden verwalten',
-    },
-    {
       basePath: '/addCustomer',
       cssClass: 'dashboard__withAuth--tile tiles--customer',
       title: 'Kunde',
       subtitle: 'Neuen Kunden hinzufügen',
     },
     {
-      basePath: '/cars',
-      cssClass: 'dashboard__withAuth--tile tiles--car',
-      title: 'Autos',
-      subtitle: 'Autos verwalten',
+      basePath: '/customers',
+      cssClass: 'dashboard__withAuth--tile tiles--customer',
+      title: 'Kunde',
+      subtitle: 'Kunden verwalten',
     },
     {
       basePath: '/addCar',
@@ -41,16 +35,22 @@ export class DashboardComponent implements OnInit{
       subtitle: 'Neues Auto hinzufügen',
     },
     {
-      basePath: '/bills',
-      cssClass: 'dashboard__withAuth--tile tiles--bill',
-      title: 'Rechnungen',
-      subtitle: 'Rechnungen verwalten',
+      basePath: '/cars',
+      cssClass: 'dashboard__withAuth--tile tiles--car',
+      title: 'Autos',
+      subtitle: 'Autos verwalten',
     },
     {
       basePath: '/createBill',
       cssClass: 'dashboard__withAuth--tile tiles--bill',
       title: 'Rechnungen',
       subtitle: 'Neue Rechnung erstellen',
+    },
+    {
+      basePath: '/bills',
+      cssClass: 'dashboard__withAuth--tile tiles--bill',
+      title: 'Rechnungen',
+      subtitle: 'Rechnungen verwalten',
     },
   ]
 
