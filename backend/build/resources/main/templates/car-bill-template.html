@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" type="text/css">
         <title></title>
-        <style type="text/css">
+        <style>
             .flex-container {
                 display: flex;
                 width: 100%;
@@ -38,6 +38,21 @@
             p {
                 margin-bottom: 0 !important;
             }
+
+            .bold {
+                font-weight: bold;
+            }
+
+            .footer {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+            th, td {
+                padding-right: 2rem;
+            }
         </style>
     </head>
 
@@ -51,36 +66,36 @@
             </div>
 
             <div class="flex-column-item flex-container-end">
-                <div class="flex-column-item-end mb-0">
-                    <p>Hallenplatz Vermietung</p>
-                    <p >Husumer Str. 74 </p>
-                    <p>25821 Bredstedt</p>
+                <div class="flex-column-item-end mb-0 text-right">
+                    <p class="bold">Hallenplatz Vermietung</p>
+                    <p class="bold">Husumer Str. 74 </p>
+                    <p class="bold mt-2">25821 Bredstedt</p>
                 </div>
             </div>
         </div>
 
-        <div class="flex-container ">
-            <p class="flex-column-item">Karen Schütt, Husumer Str. 76, 25821 Bredstedt</p>
+        <div class="flex-container pt-3">
+            <p class="flex-column-item" style="font-style: italic">Karen Schütt, Husumer Str. 76, 25821 Bredstedt</p>
             <div class="flex-container-end">
-                <p class="flex-column-item-end" th:text="${'Datum: ' + todayDate}"></p>
+                <p class="flex-column-item-end bold" th:text="${'Datum: ' + todayDate}"></p>
             </div>
         </div>
 
-        <div>
-            <p th:text="${customer.getFirstname() + ' ' + customer.getLastname()}"></p>
-            <p th:text="${customer.getStreet() + ' ' + customer.getHousingNumber()}"></p>
-            <p th:text="${customer.getPostalCode() + ' ' + customer.getCity()}"></p>
+        <div class="pt-3">
+            <p class="bold" th:text="${customer.getFirstname() + ' ' + customer.getLastname()}"></p>
+            <p class="bold" th:text="${customer.getStreet() + ' ' + customer.getHousingNumber()}"></p>
+            <p class="bold mt-2" th:text="${customer.getPostalCode() + ' ' + customer.getCity()}"></p>
         </div>
 
-        <div>
-            <div>
-                <p>Rechnung</p>
-                <p>- Stellplatz-Miete -</p>
+        <div class="pt-5">
+            <div style="display: flex; align-items: center">
+                <h4 class="bold">Rechnung</h4>
+                <h6 style="font-style: italic; margin-left: 2rem">- Stellplatz-Miete -</h6>
             </div>
 
-            <p>Vielen Dank für den Auftrag, den ich gerne für Sie erledigt habe. Dafür berechne ich:</p>
+            <p class="pt-4">Vielen Dank für den Auftrag, den ich gerne für Sie erledigt habe. Dafür berechne ich:</p>
 
-            <table summary="summary">
+            <table summary="foobar" class="mt-3">
                 <thead>
                 <tr>
                     <th> Typ </th>
@@ -102,31 +117,40 @@
                 </tbody>
             </table>
 
-            <div>
-                <div>
-                    <p>Gesamtbetrag</p>
-                    <p th:text="${ fullPayment + '€'}"></p>
+            <div class="pt-5">
+                <div style="display: flex; align-items: center">
+                    <h5 class="bold">Gesamtbetrag:</h5>
+                    <h5 class="ml-2" style="font-size: 18px" th:text="${ fullPayment + '€'}"></h5>
                 </div>
-                <p>Der Betrag enthält keine MwSt.</p>
+                <p style="font-style: italic" class="pt-1">Der Betrag enthält keine MwSt.</p>
             </div>
         </div>
 
-        <div>
+        <div class="pt-5">
             <p>Ich bitte um Überweisung des Gesamtbetrages auf das Konto bei der</p>
-            <p>RV Bank, Bredstedt DE66 2176 3542 0002 7337 73</p>
+            <p class="bold" style="padding-left: 3rem">RV Bank, Bredstedt DE66 2176 3542 0002 7337 73</p>
         </div>
 
-        <div>
-            <div>
-                <p>Steuer Nr.: 17/182/01534</p>
-                <p>Telefon: 04671 2000</p>
+        <div class="flex-container footer">
+            <div class="flex-column-item">
+                <div style="display: flex">
+                    <div>
+                        <p>Steuer Nr.:</p>
+                        <p>Telefon</p>
+                    </div>
+                    <div style="margin-left: 1rem">
+                        <p>17/182/01534</p>
+                        <p>04671 2000</p>
+                    </div>
+                </div>
+
                 <p>www.otto-schuett@t-online.de</p>
             </div>
-            <div>
+            <div class="flex-column-item-end" style="margin-left: 5rem; display: flex">
                 <div>
                     <p>Anschrift:</p>
                 </div>
-                <div>
+                <div style="margin-left: 1rem">
                     <p>Karen Schütt</p>
                     <p>Husumer Straße 76</p>
                     <p>25821 Bredstedt</p>
